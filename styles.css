@@ -483,17 +483,17 @@ a:hover {
   line-height: 1.55;
 }
 
-/* Project grid */
-.projects-grid {
-  display: grid;
+/* Selected work — one row, equal-width cards */
+.projects-wrap {
+  display: flex;
+  flex-flow: row nowrap;
   gap: 1rem;
-  grid-template-columns: 1fr;
+  align-items: stretch;
 }
 
-@media (min-width: 640px) {
-  .projects-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.projects-wrap .project-card {
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 /* Project card */
