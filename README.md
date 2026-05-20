@@ -24,11 +24,11 @@ git push -u origin main
 
 ## Add your resume PDF
 
-Copy your latest resume into this folder as `resume.pdf` so **Download Resume** works:
+Copy your latest resume into this folder as `DwonnGoodwinResume.pdf` so **Download Resume** works:
 
 ```bash
-cp ~/Desktop/Resumes/Nice/Dwonn_Goodwin_Resume.pdf resume.pdf
-git add resume.pdf
+cp ~/Desktop/Resumes/Nice/Dwonn_Goodwin_Resume.pdf DwonnGoodwinResume.pdf
+git add DwonnGoodwinResume.pdf
 git commit -m "Add resume PDF"
 git push
 ```
@@ -49,6 +49,10 @@ python3 -m http.server 8080
 ```
 
 Open http://localhost:8080/
+
+## Related repo
+
+Agent skills: **[github.com/DwonnG/qa-agent-skills](https://github.com/DwonnG/qa-agent-skills)** (separate repo, like [qa-mcp-server](https://github.com/DwonnG/qa-mcp-server)).
 
 ## Job applications
 

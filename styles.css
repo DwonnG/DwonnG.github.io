@@ -483,6 +483,19 @@ a:hover {
   line-height: 1.55;
 }
 
+/* Project grid */
+.projects-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* Project card */
 .project-card {
   display: block;
