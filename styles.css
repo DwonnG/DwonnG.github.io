@@ -767,6 +767,27 @@ a:hover {
 }
 
 /* Skills */
+.skill-groups {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 720px) {
+  .skill-groups {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.35rem 1.5rem;
+  }
+}
+
+.skill-group-label {
+  margin: 0 0 0.55rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
 .skill-cloud {
   display: flex;
   flex-wrap: wrap;
@@ -796,15 +817,16 @@ a:hover {
   transform: translateY(-2px);
 }
 
-/* Education row */
-.section--education {
+/* Education & recognition */
+.background-grid {
   display: grid;
   gap: 0.85rem;
 }
 
-@media (min-width: 600px) {
-  .section--education {
-    grid-template-columns: 1fr 1fr;
+@media (min-width: 720px) {
+  .background-grid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: stretch;
   }
 }
 
@@ -824,6 +846,41 @@ a:hover {
 .edu-card p {
   margin: 0;
   font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.award-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.award-list li {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.award-list li:first-child {
+  padding-top: 0.15rem;
+}
+
+.award-list li:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.award-list strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.award-list span {
+  display: block;
+  font-size: 0.85rem;
+  line-height: 1.45;
   color: var(--text-secondary);
 }
 
