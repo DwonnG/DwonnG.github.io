@@ -12,14 +12,76 @@
   --accent-glow: rgba(84, 96, 122, 0.35);
   --ember: #6b7894;
   --ember-glow: rgba(107, 120, 148, 0.28);
+  /* Atmospheric glow tints used by .bg-glow layers; parameterized so the
+     light theme can swap them for softer pastel washes (or hide them). */
+  --glow-warm: rgba(55, 50, 85, 0.4);
+  --glow-cool-a: rgba(28, 40, 92, 0.48);
+  --glow-cool-b: rgba(28, 38, 80, 0.42);
+  /* Top-nav glass effect. Themed so the strip blends with the page in either
+     palette (was hardcoded near-black, which read as a dark band on light bg). */
+  --nav-bg: rgba(6, 8, 12, 0.65);
+  --nav-bg-scrolled: rgba(6, 8, 12, 0.88);
   --radius-sm: 8px;
   --radius: 14px;
   --radius-lg: 20px;
   --font: "Inter", system-ui, -apple-system, sans-serif;
   --font-display: "Newsreader", Georgia, serif;
-  --nav-h: 64px;
+  --nav-h: 78px;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --max: 1040px;
+}
+
+/* Light theme palette. Active when:
+   - user has explicitly chosen light via the toggle button (data-theme="light"),
+   - OR the OS prefers light AND the user has not made a manual choice (handled
+     by the inline script in <head>, which sets data-theme accordingly).
+   The toggle handler always writes an explicit data-theme attribute, so the
+   media-query fallback below is only for first-visit + JS-disabled scenarios. */
+[data-theme="light"] {
+  --bg: #f6f7fa;
+  --bg-elevated: rgba(255, 255, 255, 0.82);
+  --border: rgba(15, 17, 26, 0.1);
+  --border-hover: rgba(15, 17, 26, 0.2);
+  --text: #1a1d24;
+  --text-secondary: #4a4f5a;
+  --text-tertiary: #767b85;
+  --accent: #455374;
+  --accent-muted: #6b7894;
+  --accent-dim: rgba(69, 83, 116, 0.1);
+  --accent-glow: rgba(69, 83, 116, 0.22);
+  --ember: #5a6680;
+  --ember-glow: rgba(90, 102, 128, 0.18);
+  --glow-warm: rgba(168, 175, 210, 0.35);
+  --glow-cool-a: rgba(155, 175, 215, 0.32);
+  --glow-cool-b: rgba(170, 190, 220, 0.28);
+  --nav-bg: rgba(255, 255, 255, 0.72);
+  --nav-bg-scrolled: rgba(255, 255, 255, 0.92);
+}
+
+/* Defense-in-depth: if JS is disabled and the inline theme-init script never
+   ran, fall back to system preference. The toggle handler writes an explicit
+   data-theme attribute, so this rule is shadowed once the user interacts. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --bg: #f6f7fa;
+    --bg-elevated: rgba(255, 255, 255, 0.82);
+    --border: rgba(15, 17, 26, 0.1);
+    --border-hover: rgba(15, 17, 26, 0.2);
+    --text: #1a1d24;
+    --text-secondary: #4a4f5a;
+    --text-tertiary: #767b85;
+    --accent: #455374;
+    --accent-muted: #6b7894;
+    --accent-dim: rgba(69, 83, 116, 0.1);
+    --accent-glow: rgba(69, 83, 116, 0.22);
+    --ember: #5a6680;
+    --ember-glow: rgba(90, 102, 128, 0.18);
+    --glow-warm: rgba(168, 175, 210, 0.35);
+    --glow-cool-a: rgba(155, 175, 215, 0.32);
+    --glow-cool-b: rgba(170, 190, 220, 0.28);
+    --nav-bg: rgba(255, 255, 255, 0.72);
+    --nav-bg-scrolled: rgba(255, 255, 255, 0.92);
+  }
 }
 
 *,
@@ -47,6 +109,15 @@ body {
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  /* Soft cross-fade when the theme flips so the swap doesn't feel abrupt.
+     Respects prefers-reduced-motion via the media query below. */
+  transition: background-color 0.3s var(--ease-out), color 0.3s var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    transition: none;
+  }
 }
 
 /* Background atmospheric layers */
@@ -77,7 +148,7 @@ body {
   top: -140px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(55, 50, 85, 0.4);
+  background: var(--glow-warm);
   filter: blur(140px);
   opacity: 0.15;
 }
@@ -99,7 +170,7 @@ body {
   height: 620px;
   top: 28%;
   left: -220px;
-  background: rgba(28, 40, 92, 0.48);
+  background: var(--glow-cool-a);
   opacity: 0.36;
 }
 
@@ -108,7 +179,7 @@ body {
   height: 480px;
   top: 12%;
   right: -180px;
-  background: rgba(28, 38, 80, 0.42);
+  background: var(--glow-cool-b);
   opacity: 0.28;
 }
 
@@ -188,10 +259,10 @@ a:hover {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0 clamp(1rem, 4vw, 2rem);
+  padding: 0 clamp(1rem, 4vw, 2.25rem);
   max-width: 1200px;
   margin: 0 auto;
-  background: rgba(6, 8, 12, 0.65);
+  background: var(--nav-bg);
   backdrop-filter: blur(16px) saturate(1.4);
   -webkit-backdrop-filter: blur(16px) saturate(1.4);
   border-bottom: 1px solid transparent;
@@ -200,16 +271,16 @@ a:hover {
 
 .top-nav.is-scrolled {
   border-bottom-color: var(--border);
-  background: rgba(6, 8, 12, 0.88);
+  background: var(--nav-bg-scrolled);
 }
 
 .nav-brand {
   font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
+  font-size: 0.875rem;
+  letter-spacing: 0.14em;
   color: var(--text);
   text-decoration: none;
-  padding: 0.4rem 0.55rem;
+  padding: 0.5rem 0.7rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
 }
@@ -220,21 +291,55 @@ a:hover {
 }
 
 .nav-links a {
-  font-size: 0.8125rem;
+  position: relative;
+  font-size: 0.9rem;
   font-weight: 500;
   color: var(--text-secondary);
   text-decoration: none;
+  padding: 0.35rem 0.15rem;
+  transition: color 0.2s var(--ease-out);
 }
 
-.nav-links a:hover,
+/* Animated underline that slides in from the left on hover and stays pinned
+   for the active section. Uses a transform-only pseudo-element so the text
+   never reflows. */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  right: 0.15rem;
+  bottom: 0.15rem;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s var(--ease-out);
+}
+
+.nav-links a:hover {
+  color: var(--text);
+}
+
+.nav-links a:hover::after,
+.nav-links a.is-active::after {
+  transform: scaleX(1);
+}
+
 .nav-links a.is-active {
   color: var(--text);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .nav-links a::after {
+    transition: none;
+  }
+}
+
 .nav-cta {
-  font-size: 0.8125rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  padding: 0.45rem 0.9rem;
+  padding: 0.6rem 1.15rem;
   color: var(--bg);
   background: var(--text);
   border-radius: 999px;
@@ -752,7 +857,7 @@ a:hover {
   font-weight: 500;
   padding: 0.25rem 0.55rem;
   color: var(--text-secondary);
-  background: rgba(255, 255, 255, 0.04);
+  background: color-mix(in srgb, var(--text) 4%, transparent);
   border: 1px solid var(--border);
   border-radius: 6px;
   transition:
@@ -843,7 +948,11 @@ a:hover {
   gap: 0.4rem;
   margin: 0;
   padding: 0.65rem 0.85rem 0.55rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 70%);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--text) 2%, transparent),
+    transparent 70%
+  );
   border: 1px solid var(--border);
   border-radius: var(--radius);
 }
@@ -989,6 +1098,55 @@ a:hover {
   opacity: 1;
 }
 
+/* Light-mode pyramid palette. The dark-mode SVG bakes in a warm slate→wine
+   gradient via inline stop-color attributes, which reads as washed-out
+   pink/mauve on a light card. Override the stops with a slate-monochromatic
+   ramp (lightest at the top "UI" tier, darkest at the "Unit" base) so the
+   pyramid stays cohesive with the rest of the slate palette in light mode.
+   CSS rules override SVG presentation attributes, so no HTML change needed. */
+[data-theme="light"] #grad-ui stop:nth-of-type(1) {
+  stop-color: rgba(130, 142, 172, 0.85);
+}
+[data-theme="light"] #grad-ui stop:nth-of-type(2) {
+  stop-color: rgba(130, 142, 172, 0.6);
+}
+[data-theme="light"] #grad-api stop:nth-of-type(1) {
+  stop-color: rgba(108, 120, 152, 0.88);
+}
+[data-theme="light"] #grad-api stop:nth-of-type(2) {
+  stop-color: rgba(108, 120, 152, 0.6);
+}
+[data-theme="light"] #grad-component stop:nth-of-type(1) {
+  stop-color: rgba(86, 100, 134, 0.9);
+}
+[data-theme="light"] #grad-component stop:nth-of-type(2) {
+  stop-color: rgba(86, 100, 134, 0.62);
+}
+[data-theme="light"] #grad-integration stop:nth-of-type(1) {
+  stop-color: rgba(68, 82, 116, 0.92);
+}
+[data-theme="light"] #grad-integration stop:nth-of-type(2) {
+  stop-color: rgba(68, 82, 116, 0.64);
+}
+[data-theme="light"] #grad-unit stop:nth-of-type(1) {
+  stop-color: rgba(48, 62, 92, 0.95);
+}
+[data-theme="light"] #grad-unit stop:nth-of-type(2) {
+  stop-color: rgba(48, 62, 92, 0.7);
+}
+
+/* Pyramid slice strokes in light mode: the SVG defaults are translucent
+   white, which disappear on a lighter slate. Switch to a dark hairline so
+   slice boundaries stay legible. */
+[data-theme="light"] .pyramid-slice {
+  stroke: rgba(20, 28, 45, 0.18);
+}
+
+[data-theme="light"] .pyramid-slice:hover,
+[data-theme="light"] .pyramid-slice.is-linked {
+  stroke: rgba(20, 28, 45, 0.55);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pyramid-slice.reveal {
     opacity: 1;
@@ -1050,7 +1208,7 @@ a:hover {
 
 .timeline-details {
   background: var(--bg-elevated);
-  border: 1px solid rgba(255, 255, 255, 0.11);
+  border: 1px solid color-mix(in srgb, var(--text) 11%, transparent);
   border-radius: var(--radius);
   backdrop-filter: blur(10px);
   overflow: hidden;
@@ -1058,10 +1216,10 @@ a:hover {
 }
 
 .timeline-details[open] {
-  border-color: rgba(110, 40, 70, 0.22);
+  border-color: var(--accent-glow);
   box-shadow:
     0 12px 40px rgba(0, 0, 0, 0.32),
-    0 0 60px rgba(110, 40, 70, 0.08);
+    0 0 60px var(--accent-dim);
 }
 
 .timeline-summary {
@@ -1081,7 +1239,7 @@ a:hover {
 }
 
 .timeline-summary:hover {
-  background: rgba(255, 255, 255, 0.02);
+  background: color-mix(in srgb, var(--text) 2%, transparent);
 }
 
 .timeline-summary:focus {
@@ -1170,7 +1328,7 @@ a:hover {
   align-items: baseline;
   gap: 0.3rem;
   padding: 0.3rem 0.65rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: color-mix(in srgb, var(--text) 3%, transparent);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
 }
@@ -1463,5 +1621,99 @@ a:hover {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+}
+
+/* Floating light/dark toggle. Lives in the bottom-right corner above content
+   but below modals/skip-link. Icon visibility is driven by data-theme on
+   <html> so the JS handler only needs to flip the attribute. */
+.theme-toggle {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 50;
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+  transition:
+    transform 0.2s var(--ease-out),
+    color 0.2s var(--ease-out),
+    border-color 0.2s var(--ease-out),
+    background 0.3s var(--ease-out);
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px);
+  color: var(--text);
+  border-color: var(--border-hover);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  color: var(--text);
+}
+
+.theme-toggle:active {
+  transform: translateY(0);
+}
+
+.theme-toggle__icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* In dark mode (default), show the sun (click to switch to light).
+   In light mode, show the moon (click to switch to dark). */
+.theme-toggle__sun {
+  display: none;
+}
+
+.theme-toggle__moon {
+  display: block;
+}
+
+[data-theme="light"] .theme-toggle__sun {
+  display: block;
+}
+
+[data-theme="light"] .theme-toggle__moon {
+  display: none;
+}
+
+/* Tighter footprint on small screens so the button doesn't crowd content. */
+@media (max-width: 720px) {
+  .theme-toggle {
+    bottom: 0.85rem;
+    right: 0.85rem;
+    width: 38px;
+    height: 38px;
+  }
+
+  .theme-toggle__icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle {
+    transition: none;
+  }
+
+  .theme-toggle:hover {
+    transform: none;
   }
 }

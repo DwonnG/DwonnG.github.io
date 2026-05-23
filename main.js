@@ -28,10 +28,66 @@
     });
   }
 
+  // Light/dark theme toggle. The inline <head> script already sets data-theme
+  // before paint (so there's no FOUC). This handler just flips the attribute,
+  // persists the user's manual choice, and keeps the system listener in sync
+  // for users who haven't yet opted in to either mode.
+  function initThemeToggle() {
+    const toggle = document.querySelector(".theme-toggle");
+    if (!toggle) return;
+    const root = document.documentElement;
+
+    function currentTheme() {
+      return root.getAttribute("data-theme") === "light" ? "light" : "dark";
+    }
+
+    function updateLabel() {
+      const next = currentTheme() === "dark" ? "light" : "dark";
+      toggle.setAttribute("aria-label", "Switch to " + next + " mode");
+    }
+
+    function setTheme(theme) {
+      root.setAttribute("data-theme", theme);
+      try {
+        localStorage.setItem("theme", theme);
+      } catch (_) {}
+      updateLabel();
+      trackEvent("theme-toggle", { label: theme });
+    }
+
+    toggle.addEventListener("click", () => {
+      setTheme(currentTheme() === "dark" ? "light" : "dark");
+    });
+
+    // If the user hasn't made an explicit choice, follow OS theme changes
+    // live (e.g. macOS auto-switching at sunset).
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const onSystemChange = (e) => {
+      let hasManualChoice = false;
+      try {
+        hasManualChoice = !!localStorage.getItem("theme");
+      } catch (_) {}
+      if (hasManualChoice) return;
+      root.setAttribute("data-theme", e.matches ? "dark" : "light");
+      updateLabel();
+    };
+    if (typeof mq.addEventListener === "function") {
+      mq.addEventListener("change", onSystemChange);
+    } else if (typeof mq.addListener === "function") {
+      mq.addListener(onSystemChange);
+    }
+
+    updateLabel();
+  }
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", bindClickTracking);
+    document.addEventListener("DOMContentLoaded", () => {
+      bindClickTracking();
+      initThemeToggle();
+    });
   } else {
     bindClickTracking();
+    initThemeToggle();
   }
 
   const nav = document.querySelector(".top-nav");
