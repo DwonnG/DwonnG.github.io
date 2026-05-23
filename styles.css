@@ -1,15 +1,17 @@
 :root {
-  --bg: #06080c;
-  --bg-elevated: rgba(14, 18, 26, 0.72);
+  --bg: #0a0a0d;
+  --bg-elevated: rgba(20, 18, 20, 0.72);
   --border: rgba(255, 255, 255, 0.08);
   --border-hover: rgba(255, 255, 255, 0.16);
-  --text: #f4f7fb;
-  --text-secondary: #aebbcf;
-  --text-tertiary: #7785a0;
-  --accent: #4f9cff;
-  --accent-dim: rgba(79, 156, 255, 0.12);
-  --accent-glow: rgba(79, 156, 255, 0.35);
-  --mint: #6ee7c8;
+  --text: #f5f6f8;
+  --text-secondary: #ccced3;
+  --text-tertiary: #8e9099;
+  --accent: #a03a32;
+  --accent-muted: #6e2a25;
+  --accent-dim: rgba(160, 58, 50, 0.12);
+  --accent-glow: rgba(160, 58, 50, 0.35);
+  --ember: #a8582d;
+  --ember-glow: rgba(168, 88, 45, 0.28);
   --radius-sm: 8px;
   --radius: 14px;
   --radius-lg: 20px;
@@ -47,7 +49,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Background */
+/* Background atmospheric layers */
 .bg-grid {
   position: fixed;
   inset: 0;
@@ -57,7 +59,7 @@ body {
     linear-gradient(90deg, var(--border) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black, transparent 75%);
-  opacity: 0.45;
+  opacity: 0.35;
   pointer-events: none;
 }
 
@@ -70,22 +72,44 @@ body {
 }
 
 .bg-glow--a {
-  width: 520px;
-  height: 420px;
-  top: -120px;
+  width: 560px;
+  height: 460px;
+  top: -140px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--accent-glow);
-  opacity: 0.22;
+  background: rgba(55, 50, 85, 0.4);
+  filter: blur(140px);
+  opacity: 0.15;
 }
 
 .bg-glow--b {
-  width: 360px;
-  height: 360px;
-  bottom: 10%;
-  right: -80px;
-  background: rgba(110, 231, 200, 0.15);
-  opacity: 0.35;
+  width: 420px;
+  height: 420px;
+  bottom: 8%;
+  right: -180px;
+  background: var(--ember-glow);
+  filter: blur(130px);
+  opacity: 0.36;
+}
+
+/* Cool-edge tints: subtle midnight presence at the far left and far right
+   to enrich the palette and separate the warm crimson/ember tones. */
+.bg-glow--c {
+  width: 400px;
+  height: 620px;
+  top: 28%;
+  left: -220px;
+  background: rgba(28, 40, 92, 0.48);
+  opacity: 0.36;
+}
+
+.bg-glow--d {
+  width: 340px;
+  height: 480px;
+  top: 12%;
+  right: -180px;
+  background: rgba(28, 38, 80, 0.42);
+  opacity: 0.28;
 }
 
 a {
@@ -95,7 +119,7 @@ a {
 }
 
 a:hover {
-  color: var(--mint);
+  color: var(--ember);
 }
 
 .skip-link {
@@ -180,7 +204,7 @@ a:hover {
 }
 
 .nav-cta:hover {
-  background: var(--mint);
+  background: var(--ember);
   color: var(--bg);
   transform: translateY(-1px);
 }
@@ -222,8 +246,8 @@ a:hover {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--mint);
-  box-shadow: 0 0 12px var(--mint);
+  background: var(--ember);
+  box-shadow: 0 0 12px var(--ember);
   animation: pulse 2.4s ease-in-out infinite;
 }
 
@@ -296,7 +320,7 @@ a:hover {
 
 .btn--primary {
   color: var(--bg);
-  background: linear-gradient(135deg, var(--accent) 0%, #3b7dd4 100%);
+  background: var(--accent);
   box-shadow: 0 4px 24px var(--accent-dim);
 }
 
@@ -389,7 +413,8 @@ a:hover {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-muted);
+  opacity: 0.88;
 }
 
 .section-head h2 {
@@ -442,8 +467,8 @@ a:hover {
 }
 
 .bento-card--featured {
-  border-color: rgba(79, 156, 255, 0.25);
-  background: linear-gradient(145deg, rgba(79, 156, 255, 0.08) 0%, var(--bg-elevated) 55%);
+  border-color: rgba(160, 58, 50, 0.25);
+  background: linear-gradient(145deg, rgba(160, 58, 50, 0.08) 0%, var(--bg-elevated) 55%);
 }
 
 .bento-card-top {
@@ -464,9 +489,9 @@ a:hover {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--mint);
+  color: var(--ember);
   padding: 0.2rem 0.5rem;
-  border: 1px solid rgba(110, 231, 200, 0.3);
+  border: 1px solid rgba(168, 88, 45, 0.3);
   border-radius: 4px;
 }
 
@@ -517,6 +542,7 @@ a:hover {
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
+  backdrop-filter: blur(6px);
   text-decoration: none;
   color: inherit;
   transition:
@@ -541,7 +567,7 @@ a:hover {
 }
 
 .project-card:hover {
-  border-color: rgba(79, 156, 255, 0.4);
+  border-color: rgba(152, 68, 60, 0.4);
   transform: translateY(-4px);
   box-shadow: 0 24px 56px rgba(0, 0, 0, 0.4);
   color: inherit;
@@ -577,7 +603,7 @@ a:hover {
 }
 
 .project-card:hover .project-tech-icon {
-  color: var(--mint);
+  color: var(--ember);
   transform: scale(1.05);
 }
 
@@ -586,7 +612,7 @@ a:hover {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-muted);
 }
 
 .project-arrow {
@@ -597,7 +623,7 @@ a:hover {
 
 .project-card:hover .project-arrow {
   transform: translate(3px, -3px);
-  color: var(--mint);
+  color: var(--ember);
 }
 
 .project-card h3 {
@@ -687,7 +713,7 @@ a:hover {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(79, 156, 255, 0.4), rgba(110, 231, 200, 0.25));
+  background: linear-gradient(135deg, rgba(160, 58, 50, 0.4), rgba(168, 88, 45, 0.25));
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
@@ -928,7 +954,7 @@ a:hover {
 
 .timeline-item:has(.timeline-details[open]) .timeline-marker {
   transform: scale(1.15);
-  border-color: var(--mint);
+  border-color: var(--ember);
   box-shadow: 0 0 0 6px var(--accent-dim), 0 0 16px var(--accent-glow);
 }
 
@@ -942,8 +968,10 @@ a:hover {
 }
 
 .timeline-details[open] {
-  border-color: rgba(79, 156, 255, 0.35);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+  border-color: rgba(110, 40, 70, 0.22);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.32),
+    0 0 60px rgba(110, 40, 70, 0.08);
 }
 
 .timeline-summary {
@@ -1127,7 +1155,7 @@ a:hover {
   padding: 0.25rem 0.65rem;
   border: 1px solid var(--border);
   border-radius: 999px;
-  background: rgba(79, 156, 255, 0.06);
+  background: rgba(160, 58, 50, 0.06);
   color: var(--text);
   font-size: 0.7rem;
   font-weight: 600;
@@ -1160,7 +1188,7 @@ a:hover {
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-muted);
 }
 
 .skill-cloud {
@@ -1264,7 +1292,7 @@ a:hover {
   margin-top: 2rem;
   padding: 4rem clamp(1rem, 4vw, 2rem) 5rem;
   border-top: 1px solid var(--border);
-  background: linear-gradient(180deg, transparent, rgba(79, 156, 255, 0.04));
+  background: linear-gradient(180deg, transparent, rgba(160, 58, 50, 0.04));
 }
 
 .footer-inner {
