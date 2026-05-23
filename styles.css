@@ -1776,6 +1776,14 @@ body[data-portrait="on"] .hero-portrait {
     grid-template-columns: 1fr 1fr;
     gap: 1.35rem 1.5rem;
   }
+
+  /* Highlight rows that span the full width of the toolkit grid. Used on
+     the "AI & agent tooling" group so it sits across the bottom as a
+     featured row rather than sitting alone on the left with empty space
+     on the right — doubles as visual emphasis for the AI-native angle. */
+  .skill-group--wide {
+    grid-column: 1 / -1;
+  }
 }
 
 .skill-group-label {
@@ -1814,6 +1822,213 @@ body[data-portrait="on"] .hero-portrait {
   border-color: var(--border-hover);
   background: var(--accent-dim);
   transform: translateY(-2px);
+}
+
+/* Testimonials / praise */
+.testimonial-grid {
+  display: grid;
+  gap: 1.25rem;
+  /* align-items: start prevents grid from stretching shorter cards to
+     match the height of an expanded sibling. Without this, expanding
+     one card would visually inflate the other. */
+  align-items: start;
+}
+
+@media (min-width: 820px) {
+  .testimonial-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+.testimonial-card {
+  position: relative;
+  margin: 0;
+  padding: 1.5rem 1.6rem 1.4rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  /* Subtle gradient seam in the top border to echo the featured project
+     card treatment — keeps the page's visual language consistent. */
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--accent) 12%, transparent) inset,
+    0 8px 24px color-mix(in srgb, var(--accent) 6%, transparent);
+  transition:
+    border-color 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out),
+    box-shadow 0.25s var(--ease-out);
+}
+
+.testimonial-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--accent) 18%, transparent) inset,
+    0 14px 32px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.testimonial-mark {
+  position: absolute;
+  top: 1rem;
+  right: 1.1rem;
+  width: 32px;
+  height: 32px;
+  color: var(--accent);
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+/* Default short summary shown when the disclosure is collapsed. Same
+   typography as the full quote so swapping between summary and full
+   doesn't cause visual jank. */
+.testimonial-summary {
+  margin: 0 0 0.85rem;
+  /* Right padding clears the decorative quote-mark glyph in the corner. */
+  padding-right: 2.25rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* When the user expands a card the summary is hidden so it isn't
+   redundant with the full quote (which contains the same content
+   verbatim). :has() lets us scope this to the specific card without
+   any JS coordination. */
+.testimonial-card:has(.testimonial-disclosure[open]) .testimonial-summary {
+  display: none;
+}
+
+/* Disclosure container that hosts the summary toggle + the full quote.
+   Native <details> handles the open/closed state with zero JS. */
+.testimonial-disclosure {
+  margin: 0 0 1.25rem;
+}
+
+.testimonial-disclosure-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  cursor: pointer;
+  /* Strip default <summary> marker (varies by engine). */
+  list-style: none;
+  transition: color 0.2s var(--ease-out);
+}
+
+.testimonial-disclosure-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.testimonial-disclosure-toggle:hover {
+  color: var(--text);
+}
+
+.testimonial-disclosure-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Label flips between "Read full quote" and "Show summary" via the
+   data-closed/data-open attributes so we don't need two <span>s. */
+.testimonial-disclosure-label::before {
+  content: attr(data-closed);
+}
+
+.testimonial-disclosure[open] .testimonial-disclosure-label::before {
+  content: attr(data-open);
+}
+
+.testimonial-disclosure-icon {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.2s var(--ease-out);
+}
+
+.testimonial-disclosure[open] .testimonial-disclosure-icon {
+  transform: rotate(180deg);
+}
+
+.testimonial-quote {
+  margin: 0.85rem 0 0;
+  /* Match the right indent of the summary so expanded quote doesn't
+     suddenly use a wider column than what the card previewed. */
+  padding-right: 2.25rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.testimonial-quote p {
+  margin: 0;
+}
+
+/* Spacing between paragraphs for multi-paragraph testimonials. */
+.testimonial-quote p + p {
+  margin-top: 0.75rem;
+}
+
+/* Subtle italic + bookend smart quotes via :before/:after kept off —
+   we display the raw quote text from LinkedIn verbatim so the cited
+   person stays intact. The decorative SVG mark above handles the
+   visual quote treatment. */
+
+.testimonial-cite {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.testimonial-avatar {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  background: var(--accent-dim);
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+}
+
+.testimonial-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.testimonial-meta p {
+  margin: 0;
+}
+
+.testimonial-name {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.testimonial-role {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.testimonial-context {
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+  letter-spacing: 0.02em;
 }
 
 /* Education & recognition */
