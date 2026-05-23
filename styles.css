@@ -601,33 +601,19 @@ a:hover {
   border-radius: 50%;
   overflow: hidden;
   position: relative;
-  /* Isolate so the duotone blend-mode overlay (::after, below) can't leak
-     into the surrounding hero/grid layers. */
-  isolation: isolate;
   background: var(--bg-elevated);
+  /* Editorial B&W treatment — photo gets a clean grayscale filter via
+     .hero-portrait__img below, and the slate ring around it keeps the
+     portrait in the brand vocabulary without a color overlay. Skipping
+     the mix-blend-mode duotone entirely; the photo reads as a classic
+     monochrome headshot rather than a stylized tint. */
   border: 2px solid var(--accent);
-  box-shadow: 0 0 0 4px var(--accent-dim), 0 8px 28px var(--accent-glow);
-  transition: border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
-}
-
-/* Slate duotone overlay. Sits on top of the grayscaled photo and uses
-   mix-blend-mode: color so the underlying luminance (face shape, suit
-   shadow detail, background gradient of the photo) is preserved while
-   the hue/saturation come from the solid slate accent above. Net effect:
-   identical visual treatment in light and dark modes — the portrait
-   always reads as a slate-tinted monochrome rather than full color,
-   keeping it in the brand vocabulary regardless of bg luminance. The
-   tint color is var(--accent), which itself theme-shifts, so the slate
-   feels right in both palettes. */
-.hero-portrait::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--accent);
-  mix-blend-mode: color;
-  pointer-events: none;
-  z-index: 1;
-  border-radius: inherit;
+  box-shadow:
+    0 0 0 4px var(--accent-dim),
+    0 8px 28px var(--accent-glow);
+  transition:
+    border-color 0.3s var(--ease-out),
+    box-shadow 0.3s var(--ease-out);
 }
 
 body[data-portrait="on"] .hero-portrait {
@@ -644,18 +630,13 @@ body[data-portrait="on"] .hero-portrait {
 .hero-portrait__img {
   object-fit: cover;
   /* Shift the visible crop left within the circular frame — subject sits
-     slightly off-center toward the left rather than dead-center. 35% means
-     the image is offset so 35% of any horizontal overflow ends up on the
-     right (vs. the default 50/50 split), which visually nudges the face
-     to the left side of the ring. Tune lower (e.g. 20%) for more left,
-     higher (e.g. 50%) to recenter. */
+     slightly off-center toward the left rather than dead-center. */
   object-position: 20% center;
-  /* Full desaturation + contrast bump is the foundation for the duotone
-     overlay above. The blend mode pulls hue/saturation from the overlay
-     and luminance from this layer, so we want strong luminance contrast
-     here. Treatment is identical in both themes — the overlay's slate
-     color shifts per theme via var(--accent) for palette cohesion. */
-  filter: grayscale(100%) contrast(1.1);
+  /* Editorial B&W: full grayscale + light contrast/brightness bump so
+     the skin tones and beard separate cleanly without the photo looking
+     muddy. No color overlay — the slate ring frames the monochrome
+     photo, no blend-mode tint required. */
+  filter: grayscale(100%) contrast(1.12) brightness(1.03);
 }
 
 .hero-portrait__monogram {
