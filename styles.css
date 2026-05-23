@@ -671,23 +671,45 @@ body[data-portrait="on"] .hero-portrait {
 }
 
 @media (max-width: 600px) {
-  /* Restore the stacked layout on phones — the badge text is long enough
-     that pairing it next to a 72px circle inside ~1rem of side padding
-     leaves no room for the headline. Portrait sits on top, badge below. */
+  /* Keep portrait + badge inline on phones. The portrait shrinks to a
+     fixed 64px circle and the badge takes the remaining width, wrapping
+     onto multiple lines beside the circle rather than stacking below it. */
   .hero-intro {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.85rem;
   }
 
   .hero-portrait {
-    width: 72px;
-    height: 72px;
-    margin-bottom: 1rem;
+    width: 64px;
+    height: 64px;
+    flex: 0 0 64px;
+    margin-bottom: 0;
   }
 
   .hero-portrait__monogram {
-    font-size: 1.65rem;
+    font-size: 1.5rem;
+  }
+
+  .hero-intro .hero-badge {
+    flex: 1 1 auto;
+    min-width: 0;
+    /* Allow the pill to wrap to 2+ lines beside the portrait without
+       blowing out the layout. Tighter padding + line-height keeps the
+       wrapped state from looking puffy. align-items: flex-start pins the
+       pulse dot to the first line of text rather than centering it
+       against the multi-line text block. */
+    align-items: flex-start;
+    padding: 0.4rem 0.7rem 0.4rem 0.55rem;
+    line-height: 1.35;
+    white-space: normal;
+    text-align: left;
+  }
+
+  .hero-intro .hero-badge .pulse {
+    /* Nudge the dot down to sit on the visual center of the first text
+       line (line-height 1.35 × 0.75rem ≈ 16px; dot is 8px). */
+    margin-top: 0.2rem;
   }
 }
 
@@ -710,6 +732,7 @@ body[data-portrait="on"] .hero-portrait {
 .pulse {
   width: 8px;
   height: 8px;
+  flex: 0 0 8px;
   border-radius: 50%;
   background: var(--ember);
   box-shadow: 0 0 12px var(--ember);
@@ -1313,6 +1336,31 @@ body[data-portrait="on"] .hero-portrait {
   padding: 0.25rem 0;
 }
 
+/* In light mode the pyramid uses the same SVG gradient as dark mode
+   (saturated slate→wine, baked into the SVG stops). Against a light
+   card background those colors read as washed out — slate-blue at
+   the top loses contrast on white and the wine tones look flat.
+   Applying a brightness/contrast filter darkens the rendered slice
+   colors and tightens tonal range so the pyramid gains presence
+   without changing the SVG itself (identity preserved). Drop-shadow
+   is re-declared because filter is a single property and would
+   otherwise drop the base shadow. Per-slice hover already applies
+   filter: brightness(1.18), which composes on top of the SVG-level
+   filter, so hovered slices lift back near their original brightness
+   — a natural pairing with the dimmer resting state. Dark mode is
+   unaffected. */
+[data-theme="light"] .pyramid-svg {
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.35)) brightness(0.88)
+    contrast(1.18) saturate(1.12);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .pyramid-svg {
+    filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.35)) brightness(0.88)
+      contrast(1.18) saturate(1.12);
+  }
+}
+
 .pyramid-svg {
   width: 100%;
   max-width: 200px;
@@ -1358,31 +1406,40 @@ body[data-portrait="on"] .hero-portrait {
 .pyramid-slice-labels {
   pointer-events: none;
   font-family: var(--font-sans);
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  fill: var(--text);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  /* Pinned white in both themes so the pyramid renders identically
+     regardless of palette. SVG <text> ignores CSS text-shadow, so we
+     use the paint-order trick instead: draw a dark stroke first, then
+     fill white on top. That gives every letter a thin dark halo which
+     keeps the labels legible against the glossy highlight band at the
+     top of each slice (where pure-white text would otherwise wash out). */
+  fill: #ffffff;
+  stroke: rgba(0, 0, 0, 0.6);
+  stroke-width: 2.5px;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
 }
 
 .pyramid-slice-label {
-  font-size: 9px;
+  font-size: 10px;
   text-anchor: middle;
   dominant-baseline: middle;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
 }
 
 /* Per-slice label sizing — narrower top slices get tighter type */
 .pyramid-slice-labels text:nth-child(1) {
-  font-size: 9px;
+  font-size: 10px;
 }
 .pyramid-slice-labels text:nth-child(2) {
-  font-size: 10px;
+  font-size: 11px;
 }
 .pyramid-slice-labels text:nth-child(3),
 .pyramid-slice-labels text:nth-child(4) {
-  font-size: 11px;
+  font-size: 12px;
 }
 .pyramid-slice-labels text:nth-child(5) {
-  font-size: 12px;
+  font-size: 13px;
 }
 
 /* Pyramid tech pills — live at the bottom of the featured card. Container shows
@@ -1436,65 +1493,6 @@ body[data-portrait="on"] .hero-portrait {
 
 .pyramid-slice.reveal.is-visible {
   opacity: 1;
-}
-
-/* Light-mode pyramid palette. The dark-mode SVG bakes in a warm slate→wine
-   gradient via inline stop-color attributes, which reads as washed-out
-   pink/mauve on a light card. Override the stops with a plum/blue/grey
-   cascade — cool grey at the UI tier shifting through slate-blue and
-   purple down to deep plum at the Unit base. CSS overrides the SVG
-   presentation attributes, so no HTML change is needed. */
-[data-theme="light"] #grad-ui stop:nth-of-type(1) {
-  stop-color: rgba(132, 144, 168, 0.92);
-}
-[data-theme="light"] #grad-ui stop:nth-of-type(2) {
-  stop-color: rgba(132, 144, 168, 0.66);
-}
-[data-theme="light"] #grad-api stop:nth-of-type(1) {
-  stop-color: rgba(104, 120, 158, 0.92);
-}
-[data-theme="light"] #grad-api stop:nth-of-type(2) {
-  stop-color: rgba(104, 120, 158, 0.66);
-}
-[data-theme="light"] #grad-component stop:nth-of-type(1) {
-  stop-color: rgba(102, 94, 154, 0.94);
-}
-[data-theme="light"] #grad-component stop:nth-of-type(2) {
-  stop-color: rgba(102, 94, 154, 0.68);
-}
-[data-theme="light"] #grad-integration stop:nth-of-type(1) {
-  stop-color: rgba(122, 76, 134, 0.95);
-}
-[data-theme="light"] #grad-integration stop:nth-of-type(2) {
-  stop-color: rgba(122, 76, 134, 0.7);
-}
-[data-theme="light"] #grad-unit stop:nth-of-type(1) {
-  stop-color: rgba(104, 60, 110, 0.97);
-}
-[data-theme="light"] #grad-unit stop:nth-of-type(2) {
-  stop-color: rgba(104, 60, 110, 0.74);
-}
-
-/* The slice gradients are saturated enough in light mode to host white
-   labels with a soft dark shadow for legibility — overriding the default
-   fill (which inherits var(--text), i.e. near-black in light mode). */
-[data-theme="light"] .pyramid-slice-labels {
-  fill: #ffffff;
-}
-
-[data-theme="light"] .pyramid-slice-label {
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
-}
-
-/* Pyramid slice strokes in light mode: slices are now saturated jewel
-   tones, so a faint white hairline (matching dark mode) reads cleanly. */
-[data-theme="light"] .pyramid-slice {
-  stroke: rgba(255, 255, 255, 0.18);
-}
-
-[data-theme="light"] .pyramid-slice:hover,
-[data-theme="light"] .pyramid-slice.is-linked {
-  stroke: rgba(255, 255, 255, 0.5);
 }
 
 @media (prefers-reduced-motion: reduce) {

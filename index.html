@@ -301,25 +301,44 @@
                     preserveAspectRatio="xMidYMid meet"
                   >
                     <defs>
+                      <!-- 3-stop "glossy" gradients: a bright highlight at
+                           the top (the upper ~40% of each slice catches a
+                           strong sheen), original midtone in the middle,
+                           and a deep shadow at the bottom. The midstop
+                           sits at 40% (not 50%) so the highlight is
+                           concentrated in the upper portion and rolls off
+                           toward shadow — reads as a 3D pyramid with light
+                           falling from above rather than flat colored bands.
+                           Highlights are pushed toward near-white tints
+                           specifically on the slate upper slices (UI/API)
+                           where the natural tonal range is narrow; the
+                           wine lower slices needed less help. Applies to
+                           both light and dark themes equally; the duotone
+                           identity is preserved. -->
                       <linearGradient id="grad-ui" x1="0" x2="0" y1="0" y2="1">
-                        <stop offset="0%" stop-color="rgba(106,115,146,0.82)" />
-                        <stop offset="100%" stop-color="rgba(106,115,146,0.5)" />
+                        <stop offset="0%" stop-color="rgba(200,210,235,0.95)" />
+                        <stop offset="40%" stop-color="rgba(106,115,146,0.88)" />
+                        <stop offset="100%" stop-color="rgba(50,55,75,0.65)" />
                       </linearGradient>
                       <linearGradient id="grad-api" x1="0" x2="0" y1="0" y2="1">
-                        <stop offset="0%" stop-color="rgba(78,79,115,0.82)" />
-                        <stop offset="100%" stop-color="rgba(78,79,115,0.5)" />
+                        <stop offset="0%" stop-color="rgba(170,172,212,0.95)" />
+                        <stop offset="40%" stop-color="rgba(78,79,115,0.88)" />
+                        <stop offset="100%" stop-color="rgba(40,42,68,0.66)" />
                       </linearGradient>
                       <linearGradient id="grad-component" x1="0" x2="0" y1="0" y2="1">
-                        <stop offset="0%" stop-color="rgba(90,53,88,0.86)" />
-                        <stop offset="100%" stop-color="rgba(90,53,88,0.52)" />
+                        <stop offset="0%" stop-color="rgba(185,140,180,0.94)" />
+                        <stop offset="40%" stop-color="rgba(90,53,88,0.9)" />
+                        <stop offset="100%" stop-color="rgba(48,22,46,0.7)" />
                       </linearGradient>
                       <linearGradient id="grad-integration" x1="0" x2="0" y1="0" y2="1">
-                        <stop offset="0%" stop-color="rgba(82,42,67,0.9)" />
-                        <stop offset="100%" stop-color="rgba(82,42,67,0.55)" />
+                        <stop offset="0%" stop-color="rgba(175,120,150,0.95)" />
+                        <stop offset="40%" stop-color="rgba(82,42,67,0.92)" />
+                        <stop offset="100%" stop-color="rgba(40,16,32,0.74)" />
                       </linearGradient>
                       <linearGradient id="grad-unit" x1="0" x2="0" y1="0" y2="1">
-                        <stop offset="0%" stop-color="rgba(74,31,45,0.95)" />
-                        <stop offset="100%" stop-color="rgba(74,31,45,0.62)" />
+                        <stop offset="0%" stop-color="rgba(165,105,125,0.96)" />
+                        <stop offset="40%" stop-color="rgba(74,31,45,0.95)" />
+                        <stop offset="100%" stop-color="rgba(35,10,18,0.78)" />
                       </linearGradient>
                     </defs>
                     <g class="pyramid-slices">
