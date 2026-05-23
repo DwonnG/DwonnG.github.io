@@ -6,12 +6,25 @@
   --text: #f5f6f8;
   --text-secondary: #ccced3;
   --text-tertiary: #8e9099;
-  --accent: #54607a;
-  --accent-muted: #3d4759;
-  --accent-dim: rgba(84, 96, 122, 0.12);
-  --accent-glow: rgba(84, 96, 122, 0.35);
-  --ember: #6b7894;
-  --ember-glow: rgba(107, 120, 148, 0.28);
+  /* Brightened from the original muted slate (#54607a / #3d4759) so accent
+     text — links, section eyebrows, icons — actually reads on the dark
+     background. Previous values produced ~4:1 / ~2.5:1 contrast (muted
+     failed WCAG AA outright); current values hit ~6.9:1 / ~4.6:1, both
+     comfortably above AA for normal text, while staying in the slate family. */
+  --accent: #8e9bc0;
+  --accent-muted: #6f7c9f;
+  --accent-dim: rgba(142, 155, 192, 0.15);
+  --accent-glow: rgba(142, 155, 192, 0.4);
+  --ember: #a0adcc;
+  --ember-glow: rgba(160, 173, 204, 0.32);
+  /* Solid-button slate, pinned to the original (pre-brightened) palette.
+     Decoupled from --accent so the brighter text/link slate above doesn't
+     drag the primary CTA fills into a more vivid blue. Used by .btn--primary
+     and the mobile .nav-cta. */
+  --accent-fill: #54607a;
+  --accent-fill-hover: #3d4759;
+  --accent-fill-dim: rgba(84, 96, 122, 0.12);
+  --accent-fill-glow: rgba(84, 96, 122, 0.35);
   /* Atmospheric glow tints used by .bg-glow layers; parameterized so the
      light theme can swap them for softer pastel washes (or hide them). */
   --glow-warm: rgba(55, 50, 85, 0.4);
@@ -54,6 +67,12 @@
   --accent-glow: rgba(69, 83, 116, 0.22);
   --ember: #5a6680;
   --ember-glow: rgba(90, 102, 128, 0.18);
+  /* In light mode the original --accent already worked as a button fill on
+     the white background, so --accent-fill simply mirrors --accent here. */
+  --accent-fill: #455374;
+  --accent-fill-hover: #6b7894;
+  --accent-fill-dim: rgba(69, 83, 116, 0.1);
+  --accent-fill-glow: rgba(69, 83, 116, 0.22);
   /* Light-mode glow tints lean into deeper, more saturated jewel tones —
      a pastel wash disappears on near-white backgrounds, so the colors need
      real pigment + alpha (~2x dark-mode alpha) to read after layer opacity
@@ -84,6 +103,10 @@
     --accent-glow: rgba(69, 83, 116, 0.22);
     --ember: #5a6680;
     --ember-glow: rgba(90, 102, 128, 0.18);
+    --accent-fill: #455374;
+    --accent-fill-hover: #6b7894;
+    --accent-fill-dim: rgba(69, 83, 116, 0.1);
+    --accent-fill-glow: rgba(69, 83, 116, 0.22);
     --glow-warm: rgba(130, 100, 175, 0.42);
     --glow-cool-a: rgba(75, 110, 185, 0.52);
     --glow-cool-b: rgba(95, 130, 195, 0.46);
@@ -517,16 +540,18 @@ a:hover {
   /* Soften the Let's Connect CTA on mobile — at phone widths the inverted
      near-black pill reads as aggressive next to the small DG brand and
      hamburger. Slate fill + slightly smaller padding keeps it discoverable
-     without dominating the strip. Desktop styling is unchanged. */
+     without dominating the strip. Desktop styling is unchanged.
+     Uses --accent-fill so the pill stays on the muted button slate even
+     after --accent was brightened for text legibility. */
   .nav-cta {
     font-size: 0.825rem;
     padding: 0.5rem 0.95rem;
-    background: var(--accent);
+    background: var(--accent-fill);
     color: #ffffff;
   }
 
   .nav-cta:hover {
-    background: var(--accent-muted);
+    background: var(--accent-fill-hover);
     color: #ffffff;
   }
 }
@@ -651,14 +676,16 @@ a:hover {
 .btn--primary {
   /* White text on slate in both themes — using var(--bg) made the dark-mode
      CTA read as dark-on-slate (low contrast), which ghost buttons next to
-     it visually outshone. White consistently wins against the slate fill. */
+     it visually outshone. White consistently wins against the slate fill.
+     Uses --accent-fill (not --accent) so the CTA stays on the original muted
+     slate even when --accent is brightened for text/link legibility. */
   color: #ffffff;
-  background: var(--accent);
-  box-shadow: 0 4px 24px var(--accent-dim);
+  background: var(--accent-fill);
+  box-shadow: 0 4px 24px var(--accent-fill-dim);
 }
 
 .btn--primary:hover {
-  box-shadow: 0 8px 32px var(--accent-glow);
+  box-shadow: 0 8px 32px var(--accent-fill-glow);
   color: #ffffff;
   transform: translateY(-2px);
 }
