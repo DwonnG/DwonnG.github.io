@@ -87,8 +87,29 @@
         <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
       </div>
-      <a class="nav-cta" href="mailto:DwonnGoodwin@gmail.com">Let’s Connect</a>
+      <div class="nav-end">
+        <a class="nav-cta" href="mailto:DwonnGoodwin@gmail.com">Let’s Connect</a>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open navigation menu"
+        >
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+        </button>
+      </div>
     </nav>
+
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <a href="#impact">Impact</a>
+      <a href="#roles">Focus</a>
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
 
     <header class="hero">
       <div class="hero-inner reveal">
@@ -107,14 +128,19 @@
         <div class="hero-actions">
           <a class="btn btn--primary" href="mailto:DwonnGoodwin@gmail.com">
             <span>Get in touch</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path
-                d="M5 12h14M13 6l6 6-6 6"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="2.5" y="4.5" width="19" height="15" rx="2.5" />
+              <path d="m3.5 6.5 8.5 6 8.5-6" />
             </svg>
           </a>
           <a class="btn btn--ghost" href="DwonnGoodwinResume.pdf" download="DwonnGoodwinResume.pdf">Resume</a>

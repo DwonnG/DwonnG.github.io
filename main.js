@@ -80,14 +80,65 @@
     updateLabel();
   }
 
+  // Mobile hamburger menu. On screens <768px the desktop nav-links bar is
+  // hidden and replaced by a slide-down panel. Open/close via the toggle
+  // button, ESC key, or by tapping a link inside the panel.
+  function initMobileMenu() {
+    const toggle = document.querySelector(".nav-toggle");
+    const menu = document.getElementById("mobile-menu");
+    if (!toggle || !menu) return;
+
+    function setOpen(open) {
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute(
+        "aria-label",
+        open ? "Close navigation menu" : "Open navigation menu"
+      );
+      menu.setAttribute("aria-hidden", String(!open));
+      menu.classList.toggle("is-open", open);
+      document.body.classList.toggle("menu-open", open);
+    }
+
+    toggle.addEventListener("click", () => {
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      setOpen(!isOpen);
+    });
+
+    menu.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => setOpen(false));
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      if (toggle.getAttribute("aria-expanded") !== "true") return;
+      setOpen(false);
+      toggle.focus();
+    });
+
+    // If the viewport grows past the mobile breakpoint while the menu is
+    // open (e.g. rotating a tablet), close it so the desktop nav takes over
+    // cleanly. The breakpoint matches the @media rule in styles.css.
+    const desktopQuery = window.matchMedia("(min-width: 768px)");
+    const onDesktopChange = (e) => {
+      if (e.matches) setOpen(false);
+    };
+    if (typeof desktopQuery.addEventListener === "function") {
+      desktopQuery.addEventListener("change", onDesktopChange);
+    } else if (typeof desktopQuery.addListener === "function") {
+      desktopQuery.addListener(onDesktopChange);
+    }
+  }
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
       bindClickTracking();
       initThemeToggle();
+      initMobileMenu();
     });
   } else {
     bindClickTracking();
     initThemeToggle();
+    initMobileMenu();
   }
 
   const nav = document.querySelector(".top-nav");
