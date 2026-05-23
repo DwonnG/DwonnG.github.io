@@ -106,11 +106,27 @@
   function onScroll() {
     if (nav) nav.classList.toggle("is-scrolled", window.scrollY > 12);
 
-    const y = window.scrollY + nav.offsetHeight + 40;
-    let current = sections[0]?.link;
-    for (const { link, el } of sections) {
-      if (el.offsetTop <= y) current = link;
+    // Bottom-of-document override: short tail sections (#contact, sometimes
+    // #experience) don't generate enough scroll travel to push their top
+    // above the threshold line, so the iterator below would otherwise stop
+    // at the previous section and underline the wrong link. When the user is
+    // pinned at the bottom of the document, the last section is the right
+    // answer by definition.
+    const atBottom =
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 4;
+
+    let current;
+    if (atBottom) {
+      current = sections[sections.length - 1]?.link;
+    } else {
+      const y = window.scrollY + nav.offsetHeight + 40;
+      current = sections[0]?.link;
+      for (const { link, el } of sections) {
+        if (el.offsetTop <= y) current = link;
+      }
     }
+
     navLinks.forEach((a) => a.classList.toggle("is-active", a === current));
   }
 
