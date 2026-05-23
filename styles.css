@@ -16,7 +16,10 @@
   --accent-dim: rgba(142, 155, 192, 0.15);
   --accent-glow: rgba(142, 155, 192, 0.4);
   --ember: #a0adcc;
-  --ember-glow: rgba(160, 173, 204, 0.32);
+  /* Bumped from 0.32 → 0.45 so the bottom-right ember wash registers
+     in dark mode on phone displays where the previous value sat below
+     the OLED black floor and disappeared into the page bg. */
+  --ember-glow: rgba(160, 173, 204, 0.45);
   /* Solid-button slate, pinned to the original (pre-brightened) palette.
      Decoupled from --accent so the brighter text/link slate above doesn't
      drag the primary CTA fills into a more vivid blue. Used by .btn--primary
@@ -26,13 +29,20 @@
   --accent-fill-dim: rgba(84, 96, 122, 0.12);
   --accent-fill-glow: rgba(84, 96, 122, 0.35);
   /* Atmospheric glow tints used by .bg-glow layers; parameterized so the
-     light theme can swap them for softer pastel washes (or hide them). */
-  --glow-warm: rgba(55, 50, 85, 0.4);
-  --glow-cool-a: rgba(28, 40, 92, 0.48);
-  --glow-cool-b: rgba(28, 38, 80, 0.42);
-  /* Background grid line tint — kept separate from --border so the grid can
-     be tuned for visibility without affecting card/divider borders. */
-  --grid-line: rgba(255, 255, 255, 0.11);
+     light theme can swap them for softer pastel washes (or hide them).
+     Bumped from the original (~0.4/0.48/0.42 alphas) because the
+     stacked rgba × .bg-glow opacity × heavy blur was crushing the
+     atmosphere to near-invisible on OLED phones in dark mode. New
+     values land in the 0.55-0.62 range so the warm/cool washes
+     register without becoming dominant against the page bg. */
+  --glow-warm: rgba(55, 50, 85, 0.58);
+  --glow-cool-a: rgba(28, 40, 92, 0.62);
+  --glow-cool-b: rgba(28, 38, 80, 0.55);
+  /* Background grid line tint — kept separate from --border so the grid
+     can be tuned for visibility without affecting card/divider borders.
+     Bumped from 0.11 → 0.18 so the lines stay readable on phones
+     after the .bg-grid opacity multiplier compresses them further. */
+  --grid-line: rgba(255, 255, 255, 0.18);
   /* Top-nav glass effect. Themed so the strip blends with the page in either
      palette (was hardcoded near-black, which read as a dark band on light bg). */
   --nav-bg: rgba(6, 8, 12, 0.65);
@@ -221,7 +231,10 @@ body {
 @media (max-width: 720px) {
   .bg-grid {
     mask-image: radial-gradient(ellipse 130% 90% at 50% 10%, black 25%, transparent 95%);
-    opacity: 0.28;
+    /* Bumped from 0.28 → 0.42 so the grid is visible on phone OLEDs in
+       dark mode (combined with the new --grid-line alpha, lands at
+       ~7.5% effective vs the previous ~3%). */
+    opacity: 0.42;
   }
 
   .bg-glow--a {
