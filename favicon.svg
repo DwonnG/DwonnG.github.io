@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!--
+    Theme-aware DG monogram. Mirrors the .nav-brand styling:
+    page-bg fill, slate border, bold sans monogram inside.
+    The @media (prefers-color-scheme) block lets modern browsers
+    swap palette automatically when the OS theme changes.
+  -->
+  <style>
+    .bg { fill: #0a0a0d; }
+    .border { stroke: #8e9bc0; fill: none; stroke-width: 3; }
+    .mono {
+      fill: #f5f6f8;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+    @media (prefers-color-scheme: light) {
+      .bg { fill: #f6f7fa; }
+      .border { stroke: #455374; }
+      .mono { fill: #1a1d24; }
+    }
+  </style>
+  <rect class="bg" width="64" height="64" rx="12" />
+  <rect class="border" x="4" y="4" width="56" height="56" rx="9" />
+  <text class="mono" x="32" y="41" text-anchor="middle">DG</text>
+</svg>
