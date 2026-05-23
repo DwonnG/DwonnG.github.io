@@ -87,11 +87,27 @@
   }
 
   const timelineDetails = document.querySelectorAll(".timeline-details");
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  );
   timelineDetails.forEach((details) => {
     details.addEventListener("toggle", () => {
       if (!details.open) return;
       timelineDetails.forEach((other) => {
         if (other !== details && other.open) other.open = false;
+      });
+      // After expanding, pull the entry's summary up to just under the sticky
+      // nav so the click target stays visible and the new content fans out
+      // below the fold instead of into it.
+      const summary = details.querySelector(".timeline-summary");
+      if (!summary) return;
+      const nav = document.querySelector(".top-nav");
+      const navOffset = nav ? nav.offsetHeight : 0;
+      const target =
+        summary.getBoundingClientRect().top + window.scrollY - navOffset - 20;
+      window.scrollTo({
+        top: target,
+        behavior: prefersReducedMotion.matches ? "auto" : "smooth",
       });
     });
   });

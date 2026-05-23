@@ -112,6 +112,45 @@ body {
   opacity: 0.28;
 }
 
+/* Mobile atmosphere — desktop glow offsets push past a narrow viewport,
+   so we pull them in, dial them up slightly, and stretch the grid mask
+   so the background reads the same on phones as on laptops. */
+@media (max-width: 720px) {
+  .bg-grid {
+    mask-image: radial-gradient(ellipse 130% 90% at 50% 10%, black 25%, transparent 95%);
+    opacity: 0.34;
+  }
+
+  .bg-glow--a {
+    width: 360px;
+    height: 320px;
+    top: -80px;
+    filter: blur(110px);
+    opacity: 0.22;
+  }
+
+  .bg-glow--b {
+    width: 320px;
+    height: 320px;
+    right: -80px;
+    bottom: 6%;
+    filter: blur(110px);
+    opacity: 0.45;
+  }
+
+  .bg-glow--c {
+    width: 280px;
+    height: 480px;
+    top: 35%;
+    left: -100px;
+    opacity: 0.42;
+  }
+
+  .bg-glow--d {
+    display: none;
+  }
+}
+
 a {
   color: var(--accent);
   text-decoration: none;
@@ -402,6 +441,30 @@ a:hover {
   margin: 0 auto;
 }
 
+/* Section dividers — a hairline gradient that fades in/out at both ends
+   to give each block its own zone without ever reading as a hard rule. */
+.section + .section {
+  position: relative;
+}
+
+.section + .section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: clamp(1rem, 4vw, 2rem);
+  right: clamp(1rem, 4vw, 2rem);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--accent-dim) 15%,
+    var(--accent-dim) 85%,
+    transparent 100%
+  );
+  opacity: 0.55;
+  pointer-events: none;
+}
+
 .section-head {
   margin-bottom: 2.5rem;
   max-width: 520px;
@@ -415,6 +478,18 @@ a:hover {
   text-transform: uppercase;
   color: var(--accent-muted);
   opacity: 0.88;
+}
+
+.eyebrow-num {
+  color: #6b3a22;
+  opacity: 0.5;
+  margin-right: 0.4em;
+  font-variant-numeric: tabular-nums;
+}
+
+.eyebrow-num::after {
+  content: "\00B7";
+  margin-left: 0.55em;
 }
 
 .section-head h2 {
@@ -613,6 +688,21 @@ a:hover {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent-muted);
+}
+
+/* Each project gets its own muted hue from the site palette so the three
+   cards read as a family of distinct work — warm anchor, cool protocol,
+   warm secondary. */
+.project-label--test {
+  color: #54607a;
+}
+
+.project-label--mcp {
+  color: #54607a;
+}
+
+.project-label--agent {
+  color: #54607a;
 }
 
 .project-arrow {
@@ -960,7 +1050,7 @@ a:hover {
 
 .timeline-details {
   background: var(--bg-elevated);
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255, 255, 255, 0.11);
   border-radius: var(--radius);
   backdrop-filter: blur(10px);
   overflow: hidden;
@@ -1289,10 +1379,28 @@ a:hover {
 
 /* Footer */
 .footer {
+  position: relative;
   margin-top: 2rem;
   padding: 4rem clamp(1rem, 4vw, 2rem) 5rem;
-  border-top: 1px solid var(--border);
   background: linear-gradient(180deg, transparent, rgba(160, 58, 50, 0.04));
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: clamp(1rem, 4vw, 2rem);
+  right: clamp(1rem, 4vw, 2rem);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--accent-dim) 15%,
+    var(--accent-dim) 85%,
+    transparent 100%
+  );
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 .footer-inner {
