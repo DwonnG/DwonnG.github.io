@@ -6,12 +6,12 @@
   --text: #f5f6f8;
   --text-secondary: #ccced3;
   --text-tertiary: #8e9099;
-  --accent: #a03a32;
-  --accent-muted: #6e2a25;
-  --accent-dim: rgba(160, 58, 50, 0.12);
-  --accent-glow: rgba(160, 58, 50, 0.35);
-  --ember: #a8582d;
-  --ember-glow: rgba(168, 88, 45, 0.28);
+  --accent: #54607a;
+  --accent-muted: #3d4759;
+  --accent-dim: rgba(84, 96, 122, 0.12);
+  --accent-glow: rgba(84, 96, 122, 0.35);
+  --ember: #6b7894;
+  --ember-glow: rgba(107, 120, 148, 0.28);
   --radius-sm: 8px;
   --radius: 14px;
   --radius-lg: 20px;
@@ -481,8 +481,8 @@ a:hover {
 }
 
 .eyebrow-num {
-  color: #6b3a22;
-  opacity: 0.5;
+  color: #3d4759;
+  opacity: 0.7;
   margin-right: 0.4em;
   font-variant-numeric: tabular-nums;
 }
@@ -542,8 +542,8 @@ a:hover {
 }
 
 .bento-card--featured {
-  border-color: rgba(160, 58, 50, 0.25);
-  background: linear-gradient(145deg, rgba(160, 58, 50, 0.08) 0%, var(--bg-elevated) 55%);
+  border-color: rgba(84, 96, 122, 0.25);
+  background: linear-gradient(145deg, rgba(84, 96, 122, 0.08) 0%, var(--bg-elevated) 55%);
 }
 
 .bento-card-top {
@@ -566,7 +566,7 @@ a:hover {
   text-transform: uppercase;
   color: var(--ember);
   padding: 0.2rem 0.5rem;
-  border: 1px solid rgba(168, 88, 45, 0.3);
+  border: 1px solid rgba(107, 120, 148, 0.3);
   border-radius: 4px;
 }
 
@@ -803,7 +803,7 @@ a:hover {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(160, 58, 50, 0.4), rgba(168, 88, 45, 0.25));
+  background: linear-gradient(135deg, rgba(84, 96, 122, 0.4), rgba(107, 120, 148, 0.25));
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
@@ -1245,7 +1245,7 @@ a:hover {
   padding: 0.25rem 0.65rem;
   border: 1px solid var(--border);
   border-radius: 999px;
-  background: rgba(160, 58, 50, 0.06);
+  background: rgba(84, 96, 122, 0.06);
   color: var(--text);
   font-size: 0.7rem;
   font-weight: 600;
@@ -1382,7 +1382,7 @@ a:hover {
   position: relative;
   margin-top: 2rem;
   padding: 4rem clamp(1rem, 4vw, 2rem) 5rem;
-  background: linear-gradient(180deg, transparent, rgba(160, 58, 50, 0.04));
+  background: linear-gradient(180deg, transparent, rgba(84, 96, 122, 0.04));
 }
 
 .footer::before {
