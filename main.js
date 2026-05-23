@@ -129,16 +129,47 @@
     }
   }
 
+  // Hero portrait visibility. Default is on (data-portrait="on" set below)
+  // so all visitors see the photo. Pass ?portrait=0 in the URL to force it
+  // off — useful for A/B comparing with/without, or for demoing a no-photo
+  // variant during portfolio reviews without redeploying. Deliberately
+  // ephemeral (no localStorage) so the URL is always the source of truth.
+  // Also wires the monogram fallback if portrait.png fails to load.
+  function initHeroPortrait() {
+    let show = true;
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("portrait") === "0") {
+        show = false;
+      }
+    } catch (_err) {
+      /* no-op — URL parse failures shouldn't block init */
+    }
+    if (show) {
+      document.body.dataset.portrait = "on";
+    }
+
+    const img = document.querySelector(".hero-portrait__img");
+    const monogram = document.querySelector(".hero-portrait__monogram");
+    if (!img || !monogram) return;
+    img.addEventListener("error", () => {
+      img.hidden = true;
+      monogram.hidden = false;
+    });
+  }
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
       bindClickTracking();
       initThemeToggle();
       initMobileMenu();
+      initHeroPortrait();
     });
   } else {
     bindClickTracking();
     initThemeToggle();
     initMobileMenu();
+    initHeroPortrait();
   }
 
   const nav = document.querySelector(".top-nav");

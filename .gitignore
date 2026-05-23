@@ -1,1 +1,5 @@
 .DS_Store
+
+# Local-only originals kept for future re-crops or re-exports. The
+# downscaled / web-optimized version (portrait.png) is what actually ships.
+portrait-original.*

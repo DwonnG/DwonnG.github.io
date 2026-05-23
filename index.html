@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Dwonn Goodwin — Staff-level SDET and AI test automation leader. Platform quality engineering, MCP agents, Playwright, and CI gates at enterprise scale."
+      content="Dwonn Goodwin — Lead / Staff SDET and AI test automation leader. Platform quality engineering, MCP agents, Playwright, and CI gates at enterprise scale."
     />
     <meta name="robots" content="index, follow, noai, noimageai" />
-    <title>Dwonn Goodwin · Staff SDET &amp; AI Automation Leader</title>
+    <title>Dwonn Goodwin · Lead / Staff SDET &amp; AI Automation Leader</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -113,17 +113,43 @@
 
     <header class="hero">
       <div class="hero-inner reveal">
-        <div class="hero-badge">
-          <span class="pulse" aria-hidden="true"></span>
-          Open to Lead SDET · QA &amp; AI automation roles · Atlanta
+        <!-- Hero portrait + availability badge. Wrapped together in
+             .hero-intro so they sit on a single row at desktop widths
+             (portrait left, badge vertically centered to its right);
+             stacks back to portrait-above-badge at <=600px to respect
+             the narrower mobile gutter and avoid two-line badge wraps.
+             Portrait is visible by default for all visitors; main.js
+             sets data-portrait="on" on <body>. Pass ?portrait=0 in the
+             URL to force it off for an A/B preview of the no-photo
+             variant. Expects a square photo at ./portrait.png
+             (web-optimized to 256x256 / ~90 KB; original 1254x1254
+             source kept locally as portrait-original.png, gitignored).
+             Falls back to the "DG" monogram if the file fails to load. -->
+        <div class="hero-intro">
+          <figure class="hero-portrait" aria-hidden="true">
+            <img
+              class="hero-portrait__img"
+              src="portrait.png"
+              alt=""
+              width="96"
+              height="96"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="hero-portrait__monogram" hidden>DG</div>
+          </figure>
+          <div class="hero-badge">
+            <span class="pulse" aria-hidden="true"></span>
+            Open to Lead / Staff SDET · QA &amp; AI automation roles · Atlanta
+          </div>
         </div>
         <h1 class="hero-title">
           <span class="hero-title-line">Dwonn Goodwin</span>
         </h1>
         <p class="hero-lead">
-          Staff-level SDET leader in <strong>AI-native quality engineering</strong> — I build automation
-          platforms, CI gates, and agent orchestration that keep enterprise cloud releases fast and
-          trustworthy.
+          Lead / Staff SDET in <strong>AI-native quality engineering</strong>. I design the
+          automation platforms, CI gates, and agent orchestration that let enterprise teams release
+          fast — with the test evidence to back it.
         </p>
         <div class="hero-actions">
           <a class="btn btn--primary" href="mailto:DwonnGoodwin@gmail.com">
@@ -228,7 +254,7 @@
 
       <section class="section" id="work">
         <div class="section-head reveal">
-          <p class="eyebrow"><span class="eyebrow-num">02</span> Selected work</p>
+          <p class="eyebrow"><span class="eyebrow-num">02</span> Featured work</p>
           <h2>Built in the open</h2>
         </div>
         <div class="projects-wrap">
@@ -710,7 +736,7 @@
     <footer class="footer" id="contact">
       <div class="footer-inner reveal">
         <h2>Let's build quality that scales.</h2>
-        <p>Staff / Lead SDET · QA &amp; AI automation · Atlanta hybrid-friendly</p>
+        <p>Lead / Staff SDET · QA &amp; AI automation · Atlanta hybrid-friendly</p>
         <div class="footer-actions">
           <a class="btn btn--primary" href="mailto:DwonnGoodwin@gmail.com">DwonnGoodwin@gmail.com</a>
           <a class="btn btn--ghost" href="tel:+14049328712">(404) 932-8712</a>
