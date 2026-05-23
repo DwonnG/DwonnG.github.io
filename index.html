@@ -7,6 +7,7 @@
       name="description"
       content="Dwonn Goodwin — Staff-level SDET and AI test automation leader. Platform quality engineering, MCP agents, Playwright, and CI gates at enterprise scale."
     />
+    <meta name="robots" content="index, follow, noai, noimageai" />
     <title>Dwonn Goodwin · Staff SDET &amp; AI Automation Leader</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,6 +16,42 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+
+    <!-- GoatCounter config. Must be defined BEFORE the count.js script loads.
+         - allow_local: count visits from localhost / private IPs (otherwise
+           GoatCounter silently drops them, which makes local testing fail).
+           Safe to leave enabled in production since the live site never runs
+           on localhost.
+         - referrer: when the visit has no UTM and no real referrer (likely a
+           click from the resume PDF, a bookmark, or typed URL), report
+           "resume" so it shows up in GoatCounter's Referrers tab. Keeps the
+           visible URL clean and avoids polluting the Pages view.
+         To exclude your own browser from tracking, visit:
+           https://DwonnG.github.io/#toggle-goatcounter -->
+    <script>
+      window.goatcounter = {
+        allow_local: true,
+        referrer: function (r) {
+          try {
+            var url = new URL(window.location.href);
+            var hasUtm =
+              url.searchParams.has("utm_source") ||
+              url.searchParams.has("utm_campaign") ||
+              url.searchParams.has("utm_medium");
+            if (hasUtm) return r;
+            if (document.referrer) return document.referrer;
+            return "resume";
+          } catch (_) {
+            return r;
+          }
+        },
+      };
+    </script>
+
+    <!-- GoatCounter: privacy-friendly analytics (no cookies, no consent banner).
+         Dashboard: https://dwonng-portfolio.goatcounter.com -->
+    <script data-goatcounter="https://dwonng-portfolio.goatcounter.com/count"
+      async src="//gc.zgo.at/count.js"></script>
   </head>
   <body>
     <div class="bg-grid" aria-hidden="true"></div>
@@ -32,14 +69,14 @@
         <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
       </div>
-      <a class="nav-cta" href="mailto:DwonnGoodwin@gmail.com">Hire me</a>
+      <a class="nav-cta" href="mailto:DwonnGoodwin@gmail.com">Let’s Connect</a>
     </nav>
 
     <header class="hero">
       <div class="hero-inner reveal">
         <div class="hero-badge">
           <span class="pulse" aria-hidden="true"></span>
-          Open to Staff / Lead SDET · QA &amp; AI automation roles · Atlanta
+          Open to Lead SDET · QA &amp; AI automation roles · Atlanta
         </div>
         <h1 class="hero-title">
           <span class="hero-title-line">Dwonn Goodwin</span>
@@ -149,31 +186,198 @@
         <div class="section-head reveal">
           <p class="eyebrow">Selected work</p>
           <h2>Built in the open</h2>
-          <p class="section-desc">
-            Agent skills and tooling for platform QA — sanitized for public use (no internal service names).
-          </p>
         </div>
         <div class="projects-wrap">
+          <article
+            class="project-card project-card--featured reveal"
+            style="--reveal-delay: 40ms"
+          >
+            <div class="project-card-meta">
+              <div class="project-card-meta-left">
+                <span class="project-tech-icon" aria-hidden="true" title="CI pipeline">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="3" width="6" height="6" rx="1.5"/>
+                    <rect x="15" y="3" width="6" height="6" rx="1.5"/>
+                    <rect x="9" y="15" width="6" height="6" rx="1.5"/>
+                    <path d="M6 9v3a2 2 0 0 0 2 2h1"/>
+                    <path d="M18 9v3a2 2 0 0 1-2 2h-1"/>
+                  </svg>
+                </span>
+                <span class="project-label">Test framework</span>
+              </div>
+              <span class="project-arrow" aria-hidden="true">↗</span>
+            </div>
+            <div class="featured-grid">
+              <div class="featured-content">
+                <h3>
+                  <a
+                    class="project-card-primary"
+                    href="https://github.com/DwonnG/qa-automation-lab"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >qa-automation-lab</a>
+                </h3>
+                <p class="project-tagline">
+                  Full automation framework spanning UI, API, component, integration, and unit testing. With CI quality gates across a React + FastAPI application.
+                </p>              
+              </div>
+              <figure class="featured-pyramid">
+                <div class="pyramid-stage">
+                  <svg
+                    class="pyramid-svg"
+                    viewBox="0 0 240 240"
+                    role="img"
+                    aria-label="Test pyramid: UI, API, Component, Integration, Unit"
+                    preserveAspectRatio="xMidYMid meet"
+                  >
+                    <defs>
+                      <linearGradient id="grad-ui" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%" stop-color="rgba(110,231,200,0.55)" />
+                        <stop offset="100%" stop-color="rgba(110,231,200,0.3)" />
+                      </linearGradient>
+                      <linearGradient id="grad-api" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%" stop-color="rgba(96,207,220,0.5)" />
+                        <stop offset="100%" stop-color="rgba(96,207,220,0.28)" />
+                      </linearGradient>
+                      <linearGradient id="grad-component" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%" stop-color="rgba(79,156,255,0.5)" />
+                        <stop offset="100%" stop-color="rgba(79,156,255,0.26)" />
+                      </linearGradient>
+                      <linearGradient id="grad-integration" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%" stop-color="rgba(124,116,255,0.48)" />
+                        <stop offset="100%" stop-color="rgba(124,116,255,0.22)" />
+                      </linearGradient>
+                      <linearGradient id="grad-unit" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%" stop-color="rgba(190,116,255,0.42)" />
+                        <stop offset="100%" stop-color="rgba(190,116,255,0.2)" />
+                      </linearGradient>
+                    </defs>
+                    <g class="pyramid-slices">
+                      <a
+                        href="https://github.com/DwonnG/qa-automation-lab/tree/main/playwright"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="UI E2E — Playwright, Cypress, accessibility"
+                      >
+                        <path
+                          class="pyramid-slice reveal"
+                          data-tier="ui"
+                          data-label="UI E2E"
+                          data-sub="Playwright · Cypress · Accessibility"
+                          d="M 122.15 18.51 L 137.85 51.49 Q 140 56 135 56 L 105 56 Q 100 56 102.15 51.49 L 117.85 18.51 Q 120 14 122.15 18.51 Z"
+                          fill="url(#grad-ui)"
+                          style="--reveal-delay: 80ms"
+                        />
+                      </a>
+                      <a
+                        href="https://github.com/DwonnG/qa-automation-lab/tree/main/pytest-api"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="API E2E — pytest, Schemathesis, performance"
+                      >
+                        <path
+                          class="pyramid-slice reveal"
+                          data-tier="api"
+                          data-label="API E2E"
+                          data-sub="pytest · Schemathesis · Performance"
+                          d="M 105 56 L 135 56 Q 140 56 142.15 60.51 L 157.85 93.49 Q 160 98 155 98 L 85 98 Q 80 98 82.15 93.49 L 97.85 60.51 Q 100 56 105 56 Z"
+                          fill="url(#grad-api)"
+                          style="--reveal-delay: 160ms"
+                        />
+                      </a>
+                      <a
+                        href="https://github.com/DwonnG/qa-automation-lab/tree/main/web/tests"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Component — Vitest, React Testing Library"
+                      >
+                        <path
+                          class="pyramid-slice reveal"
+                          data-tier="component"
+                          data-label="Component"
+                          data-sub="Vitest · RTL"
+                          d="M 85 98 L 155 98 Q 160 98 162.15 102.51 L 177.85 135.49 Q 180 140 175 140 L 65 140 Q 60 140 62.15 135.49 L 77.85 102.51 Q 80 98 85 98 Z"
+                          fill="url(#grad-component)"
+                          style="--reveal-delay: 240ms"
+                        />
+                      </a>
+                      <a
+                        href="https://github.com/DwonnG/qa-automation-lab/tree/main/demo-app/tests/integration"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Integration — FastAPI TestClient"
+                      >
+                        <path
+                          class="pyramid-slice reveal"
+                          data-tier="integration"
+                          data-label="Integration"
+                          data-sub="FastAPI TestClient"
+                          d="M 65 140 L 175 140 Q 180 140 182.15 144.51 L 197.85 177.49 Q 200 182 195 182 L 45 182 Q 40 182 42.15 177.49 L 57.85 144.51 Q 60 140 65 140 Z"
+                          fill="url(#grad-integration)"
+                          style="--reveal-delay: 320ms"
+                        />
+                      </a>
+                      <a
+                        href="https://github.com/DwonnG/qa-automation-lab/tree/main/demo-app/tests/unit"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Unit — pytest (backend) and Vitest (frontend)"
+                      >
+                        <path
+                          class="pyramid-slice reveal"
+                          data-tier="unit"
+                          data-label="Unit"
+                          data-sub="pytest · Vitest"
+                          d="M 45 182 L 195 182 Q 200 182 202.15 186.51 L 217.85 219.49 Q 220 224 215 224 L 25 224 Q 20 224 22.15 219.49 L 37.85 186.51 Q 40 182 45 182 Z"
+                          fill="url(#grad-unit)"
+                          style="--reveal-delay: 400ms"
+                        />
+                      </a>
+                    </g>
+                    <g class="pyramid-slice-labels">
+                      <text x="120" y="48" class="pyramid-slice-label">UI</text>
+                      <text x="120" y="78" class="pyramid-slice-label">API</text>
+                      <text x="120" y="120" class="pyramid-slice-label">Component</text>
+                      <text x="120" y="162" class="pyramid-slice-label">Integration</text>
+                      <text x="120" y="204" class="pyramid-slice-label">Unit</text>
+                    </g>
+                  </svg>
+                </div>
+              </figure>
+            </div>
+            <ul class="project-tech pyramid-tech" aria-label="Tools across the pyramid"></ul>
+          </article>
           <a
             class="project-card reveal"
             href="https://github.com/DwonnG/qa-mcp-server"
             target="_blank"
             rel="noopener noreferrer"
-            style="--reveal-delay: 40ms"
+            style="--reveal-delay: 80ms"
           >
             <div class="project-card-meta">
-              <span class="project-label">Open source</span>
+              <div class="project-card-meta-left">
+                <span class="project-tech-icon" aria-hidden="true" title="Model Context Protocol">
+                  <svg viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 84.8528L85.8822 16.9706C95.2548 7.59798 110.451 7.59798 119.823 16.9706C129.196 26.3431 129.196 41.5391 119.823 50.9117L68.5581 102.177" stroke="currentColor" stroke-width="14" stroke-linecap="round"/>
+                    <path d="M69.2652 101.47L119.823 50.9117C129.196 41.5391 144.392 41.5391 153.765 50.9117L154.118 51.2652C163.491 60.6378 163.491 75.8338 154.118 85.2063L92.7248 146.6C89.6006 149.724 89.6006 154.789 92.7248 157.913L105.331 170.52" stroke="currentColor" stroke-width="14" stroke-linecap="round"/>
+                    <path d="M102.853 33.9411L52.6482 84.1457C43.2756 93.5183 43.2756 108.714 52.6482 118.087C62.0208 127.459 77.2167 127.459 86.5893 118.087L136.794 67.8822" stroke="currentColor" stroke-width="14" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <span class="project-label">MCP server</span>
+              </div>
               <span class="project-arrow" aria-hidden="true">↗</span>
             </div>
             <h3>qa-mcp-server</h3>
-            <p>
-              MCP server integrating Jira, GitHub, Jenkins, and AWS for automated test generation,
-              deployment verification, and engineering workflows.
+            <p class="project-tagline">
+              MCP server for automated test generation, deployment verification, and engineering workflows.
             </p>
             <ul class="project-tech">
               <li>Python</li>
-              <li>MCP</li>
-              <li>CI/CD</li>
+              <li>FastMCP</li>
+              <li>Jira</li>
+              <li>GitHub</li>
+              <li>Jenkins</li>
+              <li>AWS</li>
             </ul>
           </a>
           <a
@@ -181,22 +385,30 @@
             href="https://github.com/DwonnG/qa-agent-skills"
             target="_blank"
             rel="noopener noreferrer"
-            style="--reveal-delay: 80ms"
+            style="--reveal-delay: 120ms"
           >
             <div class="project-card-meta">
-              <span class="project-label">Open source</span>
+              <div class="project-card-meta-left">
+                <span class="project-tech-icon" aria-hidden="true" title="Claude / Anthropic">
+                  <svg viewBox="0 0 160 148" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(-75.96,-223.53)">
+                      <path d="m 105.01,322.07 29.14,-16.35 0.49,-1.42 -0.49,-0.79 h -1.42 l -4.87,-0.3 -16.65,-0.45 -14.44,-0.6 -13.99,-0.75 -3.52,-0.75 -3.3,-4.35 0.34,-2.17 2.96,-1.99 4.24,0.37 9.37,0.64 14.06,0.97 10.2,0.6 15.11,1.57 h 2.4 l 0.34,-0.97 -0.82,-0.6 -0.64,-0.6 -14.55,-9.86 -15.75,-10.42 -8.25,-6 -4.46,-3.04 -2.25,-2.85 -0.97,-6.22 4.05,-4.46 5.44,0.37 1.39,0.37 5.51,4.24 11.77,9.11 15.37,11.32 2.25,1.87 0.9,-0.64 0.11,-0.45 -1.01,-1.69 -8.36,-15.11 -8.92,-15.37 -3.97,-6.37 -1.05,-3.82 c -0.37,-1.57 -0.64,-2.89 -0.64,-4.5 l 4.61,-6.26 2.55,-0.82 6.15,0.82 2.59,2.25 3.82,8.74 6.19,13.76 9.6,18.71 2.81,5.55 1.5,5.14 0.56,1.57 h 0.97 v -0.9 l 0.79,-10.54 1.46,-12.94 1.42,-16.65 0.49,-4.69 2.32,-5.62 4.61,-3.04 3.6,1.72 2.96,4.24 -0.41,2.74 -1.76,11.44 -3.45,17.92 -2.25,12 h 1.31 l 1.5,-1.5 6.07,-8.06 10.2,-12.75 4.5,-5.06 5.25,-5.59 3.37,-2.66 h 6.37 l 4.69,6.97 -2.1,7.2 -6.56,8.32 -5.44,7.05 -7.8,10.5 -4.87,8.4 0.45,0.67 1.16,-0.11 17.62,-3.75 9.52,-1.72 11.36,-1.95 5.14,2.4 0.56,2.44 -2.02,4.99 -12.15,3 -14.25,2.85 -21.22,5.02 -0.26,0.19 0.3,0.37 9.56,0.9 4.09,0.22 h 10.01 l 18.64,1.39 4.87,3.22 2.92,3.94 -0.49,3 -7.5,3.82 -10.12,-2.4 -23.62,-5.62 -8.1,-2.02 h -1.12 v 0.67 l 6.75,6.6 12.37,11.17 15.49,14.4 0.79,3.56 -1.99,2.81 -2.1,-0.3 -13.61,-10.24 -5.25,-4.61 -11.89,-10.01 h -0.79 v 1.05 l 2.74,4.01 14.47,21.75 0.75,6.67 -1.05,2.17 -3.75,1.31 -4.12,-0.75 -8.47,-11.89 -8.74,-13.39 -7.05,-12 -0.86,0.49 -4.16,44.81 -1.95,2.29 -4.5,1.72 -3.75,-2.85 -1.99,-4.61 1.99,-9.11 2.4,-11.89 1.95,-9.45 1.76,-11.74 1.05,-3.9 -0.07,-0.26 -0.86,0.11 -8.85,12.15 -13.46,18.19 -10.65,11.4 -2.55,1.01 -4.42,-2.29 0.41,-4.09 2.47,-3.64 14.74,-18.75 8.89,-11.62 5.74,-6.71 -0.04,-0.97 h -0.34 l -39.15,25.42 -6.97,0.9 -3,-2.81 0.37,-4.61 1.42,-1.5 11.77,-8.1 -0.04,0.04 z"/>
+                    </g>
+                  </svg>
+                </span>
+                <span class="project-label">Agent skills</span>
+              </div>
               <span class="project-arrow" aria-hidden="true">↗</span>
             </div>
             <h3>qa-agent-skills</h3>
-            <p>
-              Public agent skills for platform QA — release gates, PR review, Jira workflows,
-              Playwright migration, test plans, and CloudWatch drift checks.
+            <p class="project-tagline">
+              Skills for QA release gates, PR review, Jira workflows,
+              Playwright migration, test plans, and CloudWatch behavorial checks.
             </p>
             <ul class="project-tech">
-              <li>Agentic QE</li>
-              <li>Playwright</li>
+              <li>Agentic QA</li>
               <li>Observability</li>
-              <li>Claude Code</li>
+              <li>Claude</li>
               <li>QA gate</li>
             </ul>
           </a>
@@ -228,61 +440,55 @@
                 <span class="timeline-chevron" aria-hidden="true"></span>
               </summary>
               <div class="timeline-body">
-                <ul class="timeline-bullets">
-                  <li>
-                    <strong>Architected enterprise-scale Playwright and Robot Framework automation</strong>
-                    across six environments, supporting 1,000+ users, 850+ automated tests, 400+ API
-                    endpoints, and 40+ Lambda services, with cross-browser validation, compliance
-                    workflows, and distributed integration testing.
-                  </li>
-                  <li>
-                    <strong>Designed CI/CD quality gates</strong> with affected-only test execution, reducing
-                    build times by 30% while supporting bi-weekly releases across six environments through
-                    automation and defect reporting.
-                  </li>
-                  <li>
-                    <strong>Built CI build monitoring agent</strong> that classified failures as flakiness versus
-                    defects to stabilize pipelines, improve triage speed, and increase release confidence.
-                  </li>
-                  <li>
-                    <strong>Built AI-driven QA orchestration workflows</strong> that analyze PR change scope and
-                    impact, record findings in Jira for triage and routing, review QA PRs against engineering
-                    standards, generate executable E2E tests from merged PRs, and automate deployment
-                    verification.
-                  </li>
-                  <li>
-                    <strong>Implemented adaptive merge-readiness validation</strong> through unit/integration
-                    coverage checks, regression execution against existing E2E suites, and self-healing updates
-                    when selectors or APIs drifted.
-                  </li>
-                  <li>
-                    <strong>Developed MCP-based integrations</strong> across GitHub, Jenkins, AWS, Jira, and Webex
-                    to centralize multi-system automation, release validation, approval routing, and
-                    engineering workflow orchestration.
-                  </li>
-                  <li>
-                    <strong>Delivered AI-assisted Jira tooling</strong> that reduced manual test plan generation
-                    efforts by approximately 80% while improving workflow consistency, traceability, and
-                    structured review processes for AI-assisted engineering operations.
-                  </li>
-                  <li>
-                    <strong>Managed AWS-based virtual test environments</strong> using EC2, Lambda, Terraform,
-                    SQS, and synthetic test-data pipelines supporting distributed systems validation.
-                  </li>
-                  <li>
-                    <strong>Led API validation initiatives</strong> using pytest and Schemathesis, validating 400+
-                    REST endpoints through automated schema checks and contract testing.
-                  </li>
-                  <li>
-                    <strong>Built performance test and resilience suites</strong> for concurrent load, p95/p99
-                    latency analysis, downstream throughput validation, and database scaling.
-                  </li>
-                  <li>
-                    <strong>Led automation strategy and quality engineering initiatives</strong> across the team
-                    while mentoring 5 QA engineers and SDETs on automation architecture, AI-assisted workflows,
-                    and scalable testing strategies.
-                  </li>
+                <ul class="timeline-stats" aria-label="Highlights">
+                  <li><span class="stat-num">1,000+</span> users</li>
+                  <li><span class="stat-num">850+</span> tests</li>
+                  <li><span class="stat-num">400+</span> APIs</li>
+                  <li><span class="stat-num">30%</span> faster CI</li>
                 </ul>
+                <div class="timeline-group">
+                  <h4 class="timeline-group-title">
+                    <span class="timeline-group-icon" aria-hidden="true">◆</span>
+                    Test automation platforms
+                  </h4>
+                  <ul class="timeline-bullets">
+                    <li>Built Playwright and Robot Framework automation across 6 environments serving 1,000+ users.</li>
+                    <li>Validated 400+ REST endpoints with pytest and Schemathesis (schema + contract testing).</li>
+                    <li>Built performance suites for concurrent load, p95/p99 latency, and downstream throughput.</li>
+                    <li>Managed AWS test environments (EC2, Lambda, Terraform, SQS) with synthetic data pipelines.</li>
+                  </ul>
+                </div>
+                <div class="timeline-group">
+                  <h4 class="timeline-group-title">
+                    <span class="timeline-group-icon" aria-hidden="true">◇</span>
+                    CI &amp; quality gates
+                  </h4>
+                  <ul class="timeline-bullets">
+                    <li>Designed CI/CD quality gates with affected-only execution, cutting build times 30%.</li>
+                    <li>Built a CI monitoring agent that separates flakiness from real defects to speed triage.</li>
+                    <li>Implemented merge-readiness checks with self-healing when selectors or APIs drift.</li>
+                  </ul>
+                </div>
+                <div class="timeline-group">
+                  <h4 class="timeline-group-title">
+                    <span class="timeline-group-icon" aria-hidden="true">✦</span>
+                    AI agents &amp; tooling
+                  </h4>
+                  <ul class="timeline-bullets">
+                    <li>Built AI orchestration that scopes PRs, files Jira findings, reviews QA PRs, and generates E2E tests.</li>
+                    <li>Built MCP integrations across GitHub, Jenkins, AWS, Jira, and Webex for multi-system orchestration.</li>
+                    <li>Delivered AI-assisted Jira tooling that cut manual test-plan effort ~80%.</li>
+                  </ul>
+                </div>
+                <div class="timeline-group">
+                  <h4 class="timeline-group-title">
+                    <span class="timeline-group-icon" aria-hidden="true">◎</span>
+                    Leadership
+                  </h4>
+                  <ul class="timeline-bullets">
+                    <li>Lead automation strategy and mentor 5 QA engineers and SDETs.</li>
+                  </ul>
+                </div>
               </div>
             </details>
           </article>
@@ -304,33 +510,32 @@
                 <span class="timeline-chevron" aria-hidden="true"></span>
               </summary>
               <div class="timeline-body">
-                <ul class="timeline-bullets">
-                  <li>
-                    <strong>Built scalable cross-platform automation frameworks</strong> for iOS, Android, and
-                    web applications using Appium, Selenium WebDriver, and AWS Device Farm supporting
-                    large-scale cloud applications and distributed mobile test execution.
-                  </li>
-                  <li>
-                    <strong>Managed distributed mobile device infrastructure</strong>, execution scheduling,
-                    accessibility validation, and automated test result aggregation across Android and iOS
-                    environments.
-                  </li>
-                  <li>
-                    <strong>Led mobile quality initiatives</strong> for a cloud music streaming platform serving
-                    millions of users, validating playback reliability, rendering behavior, latency, network
-                    resiliency, and platform stability across varying device and connectivity conditions.
-                  </li>
-                  <li>
-                    <strong>Developed CI-integrated automation workflows</strong> and quality checks supporting
-                    regression execution, release confidence, and faster debugging of flaky mobile test
-                    scenarios.
-                  </li>
-                  <li>
-                    <strong>Partnered closely with engineering teams</strong> to improve automation adoption,
-                    frontend and mobile testability, accessibility validation, layered deployment testing, and
-                    shared ownership of product quality throughout the development lifecycle.
-                  </li>
+                <ul class="timeline-stats" aria-label="Highlights">
+                  <li><span class="stat-num">Millions</span> of users</li>
+                  <li><span class="stat-num">iOS</span> · Android · web</li>
+                  <li><span class="stat-num">AWS</span> Device Farm</li>
                 </ul>
+                <div class="timeline-group">
+                  <h4 class="timeline-group-title">
+                    <span class="timeline-group-icon" aria-hidden="true">◆</span>
+                    Mobile &amp; cross-platform automation
+                  </h4>
+                  <ul class="timeline-bullets">
+                    <li>Built cross-platform automation for iOS, Android, and web using Appium, Selenium WebDriver, and AWS Device Farm.</li>
+                    <li>Managed distributed mobile device infrastructure, execution scheduling, and result aggregation across platforms.</li>
+                    <li>Led mobile quality for a music streaming platform serving millions — validating playback, latency, and network resiliency.</li>
+                  </ul>
+                </div>
+                <div class="timeline-group">
+                  <h4 class="timeline-group-title">
+                    <span class="timeline-group-icon" aria-hidden="true">◇</span>
+                    CI &amp; engineering partnership
+                  </h4>
+                  <ul class="timeline-bullets">
+                    <li>Built CI-integrated automation and regression suites that improved release confidence and flaky-test triage.</li>
+                    <li>Partnered with engineering teams to drive automation adoption, testability, and shared ownership of quality.</li>
+                  </ul>
+                </div>
               </div>
             </details>
           </article>
@@ -350,12 +555,16 @@
                 <span class="timeline-chevron" aria-hidden="true"></span>
               </summary>
               <div class="timeline-body">
-                <ul class="timeline-bullets">
-                  <li>
-                    Designed Linux hardware-in-the-loop and VM-based test environments for enterprise
-                    infrastructure validation, including lab configuration and multi-project system setups.
-                  </li>
-                </ul>
+                <div class="timeline-group">
+                  <h4 class="timeline-group-title">
+                    <span class="timeline-group-icon" aria-hidden="true">◆</span>
+                    Hardware-in-the-loop testing
+                  </h4>
+                  <ul class="timeline-bullets">
+                    <li>Designed Linux hardware-in-the-loop and VM-based test environments for enterprise infrastructure validation.</li>
+                    <li>Configured multi-project lab setups for distributed system testing across hardware and virtual targets.</li>
+                  </ul>
+                </div>
               </div>
             </details>
           </article>
@@ -375,12 +584,16 @@
                 <span class="timeline-chevron" aria-hidden="true"></span>
               </summary>
               <div class="timeline-body">
-                <ul class="timeline-bullets">
-                  <li>
-                    Developed Java/Selenium/TestNG automation (Page Object Model, data-driven) with database
-                    and ETL validation (Oracle, SQL Server) and large-scale regression across environments.
-                  </li>
-                </ul>
+                <div class="timeline-group">
+                  <h4 class="timeline-group-title">
+                    <span class="timeline-group-icon" aria-hidden="true">◆</span>
+                    Selenium framework &amp; ETL validation
+                  </h4>
+                  <ul class="timeline-bullets">
+                    <li>Built Java/Selenium/TestNG automation using Page Object Model and data-driven patterns.</li>
+                    <li>Validated Oracle and SQL Server ETL pipelines as part of large-scale regression suites across environments.</li>
+                  </ul>
+                </div>
               </div>
             </details>
           </article>

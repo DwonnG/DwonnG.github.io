@@ -36,3 +36,4 @@ Edit `index.html` if contact URLs change:
 
 - [qa-mcp-server](https://github.com/DwonnG/qa-mcp-server) — MCP integrations for Jira, GitHub, Jenkins, AWS
 - [qa-agent-skills](https://github.com/DwonnG/qa-agent-skills) — Agent skills for QA workflows
+- [qa-automation-lab](https://github.com/DwonnG/qa-automation-lab) - Multi-framework test automation lab

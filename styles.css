@@ -4,8 +4,8 @@
   --border: rgba(255, 255, 255, 0.08);
   --border-hover: rgba(255, 255, 255, 0.16);
   --text: #f4f7fb;
-  --text-secondary: #9aa8bc;
-  --text-tertiary: #6b7a90;
+  --text-secondary: #aebbcf;
+  --text-tertiary: #7785a0;
   --accent: #4f9cff;
   --accent-dim: rgba(79, 156, 255, 0.12);
   --accent-glow: rgba(79, 156, 255, 0.35);
@@ -40,7 +40,7 @@ body {
   margin: 0;
   font-family: var(--font);
   font-size: 0.9375rem;
-  line-height: 1.65;
+  line-height: 1.7;
   color: var(--text);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
@@ -379,7 +379,7 @@ a:hover {
 }
 
 .section-head {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   max-width: 520px;
 }
 
@@ -393,7 +393,7 @@ a:hover {
 }
 
 .section-head h2 {
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.75rem;
   font-family: var(--font-display);
   font-size: clamp(1.75rem, 4vw, 2.25rem);
   font-weight: 500;
@@ -483,17 +483,31 @@ a:hover {
   line-height: 1.55;
 }
 
-/* Selected work — one row, equal-width cards */
+/* Selected work — three cards in a row, sized to match heights */
 .projects-wrap {
-  display: flex;
-  flex-flow: row nowrap;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
   gap: 1rem;
   align-items: stretch;
 }
 
 .projects-wrap .project-card {
-  flex: 1 1 0;
   min-width: 0;
+}
+
+@media (max-width: 960px) {
+  .projects-wrap {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .projects-wrap .project-card--featured {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .projects-wrap {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Project card */
@@ -511,6 +525,21 @@ a:hover {
     box-shadow 0.35s;
 }
 
+/* All cards share a height in the row — pin tech pills (or pyramid widget) to the bottom */
+.projects-wrap .project-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.projects-wrap .project-card:not(.project-card--featured) .project-tech {
+  margin-top: auto;
+  padding-top: 0.75rem;
+}
+
+.projects-wrap .project-card--featured .featured-pyramid {
+  margin: 0;
+}
+
 .project-card:hover {
   border-color: rgba(79, 156, 255, 0.4);
   transform: translateY(-4px);
@@ -521,7 +550,35 @@ a:hover {
 .project-card-meta {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 0.75rem;
+}
+
+.project-card-meta-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.project-tech-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: var(--text-tertiary);
+  transition: color 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+
+.project-tech-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.project-card:hover .project-tech-icon {
+  color: var(--mint);
+  transform: scale(1.05);
 }
 
 .project-label {
@@ -556,6 +613,15 @@ a:hover {
   color: var(--text-secondary);
 }
 
+.project-tagline {
+  margin: 0 0 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text);
+  letter-spacing: -0.005em;
+}
+
 .project-tech {
   display: flex;
   flex-wrap: wrap;
@@ -573,6 +639,245 @@ a:hover {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border);
   border-radius: 6px;
+  transition:
+    color 0.25s var(--ease-out),
+    border-color 0.25s var(--ease-out),
+    background 0.25s var(--ease-out);
+}
+
+/* Featured project card */
+.project-card--featured {
+  position: relative;
+  padding: 1.65rem 1.75rem 1.75rem;
+  background: var(--bg-elevated);
+  overflow: hidden;
+}
+
+/* Primary link wraps the title; its ::after extends the click area to the whole card.
+   Inner deep links (pills, slices, legend rows) get z-index: 1 so they win over the ::after. */
+.project-card-primary {
+  color: inherit;
+  text-decoration: none;
+}
+
+.project-card-primary:hover {
+  color: inherit;
+}
+
+.project-card-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+.project-card-primary:focus-visible {
+  outline: none;
+}
+
+.project-card--featured:has(.project-card-primary:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.project-card--featured::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(79, 156, 255, 0.4), rgba(110, 231, 200, 0.25));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.65;
+  transition: opacity 0.35s var(--ease-out);
+}
+
+.project-card--featured:hover::before {
+  opacity: 1;
+}
+
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(150px, 180px);
+  gap: 1.1rem;
+  align-items: center;
+}
+
+@media (max-width: 720px) {
+  .featured-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.featured-content > p {
+  margin-bottom: 0.85rem;
+}
+
+/* Test pyramid visual */
+.featured-pyramid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0.65rem 0.85rem 0.55rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 70%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.pyramid-caption {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  text-align: center;
+}
+
+.pyramid-stage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25rem 0;
+}
+
+.pyramid-svg {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.35));
+}
+
+/* Each SVG link gets a clear focus ring for keyboard users */
+.pyramid-slices a {
+  cursor: pointer;
+  outline: none;
+}
+
+.pyramid-slices a:focus-visible .pyramid-slice {
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  filter: brightness(1.2);
+}
+
+.pyramid-slice {
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 1;
+  cursor: pointer;
+  transition:
+    filter 0.25s var(--ease-out),
+    stroke 0.25s var(--ease-out),
+    opacity 0.25s var(--ease-out);
+}
+
+.pyramid-slice:hover,
+.pyramid-slice.is-linked {
+  stroke: rgba(255, 255, 255, 0.45);
+  filter: brightness(1.18);
+}
+
+.pyramid-slice.is-dimmed {
+  filter: brightness(0.55);
+  opacity: 0.55;
+}
+
+.pyramid-slice-labels {
+  pointer-events: none;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  fill: var(--text);
+}
+
+.pyramid-slice-label {
+  font-size: 9px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+/* Per-slice label sizing — narrower top slices get tighter type */
+.pyramid-slice-labels text:nth-child(1) {
+  font-size: 9px;
+}
+.pyramid-slice-labels text:nth-child(2) {
+  font-size: 10px;
+}
+.pyramid-slice-labels text:nth-child(3),
+.pyramid-slice-labels text:nth-child(4) {
+  font-size: 11px;
+}
+.pyramid-slice-labels text:nth-child(5) {
+  font-size: 12px;
+}
+
+/* Pyramid tech pills — live at the bottom of the featured card. Container shows
+   a single hint pill by default; on hover of a pyramid slice, JS swaps in that
+   tier's tools as pills. Visually identical to .project-tech li on sibling cards. */
+.pyramid-tech {
+  margin-top: auto;
+  padding-top: 1rem;
+  justify-content: flex-start;
+  align-items: flex-end;
+  align-content: flex-end;
+  min-height: 3.4rem;
+}
+
+.pyramid-tech li {
+  opacity: 0;
+  transform: translateY(4px);
+  animation: pyramid-pill-rise 0.28s var(--ease-out) forwards;
+  animation-delay: var(--pill-delay, 0ms);
+}
+
+.pyramid-tech-hint {
+  color: var(--text-tertiary);
+}
+
+@keyframes pyramid-pill-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pyramid-tech li {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Reveal animation for SVG slices — opacity only, since transforms on SVG
+   <path> elements render inconsistently on iOS Safari with transform-box. */
+.pyramid-slice.reveal {
+  opacity: 0;
+  transition:
+    opacity 0.55s var(--ease-out),
+    filter 0.25s var(--ease-out),
+    stroke 0.25s var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.pyramid-slice.reveal.is-visible {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pyramid-slice.reveal {
+    opacity: 1;
+    transition: none;
+  }
 }
 
 /* Timeline */
@@ -728,6 +1033,38 @@ a:hover {
   animation: timeline-open 0.35s var(--ease-out);
 }
 
+/* Highlight stats strip at the top of an expanded timeline entry. Surfaces
+   the most scannable numbers so recruiters don't have to mine the bullets. */
+.timeline-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.75rem;
+  margin: 1rem 0 0.25rem;
+  padding: 0;
+  list-style: none;
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  letter-spacing: 0.01em;
+}
+
+.timeline-stats li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  padding: 0.3rem 0.65rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.timeline-stats .stat-num {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1;
+}
+
 @keyframes timeline-open {
   from {
     opacity: 0;
@@ -764,6 +1101,44 @@ a:hover {
 .timeline-bullets strong {
   color: var(--text);
   font-weight: 600;
+}
+
+.timeline-group {
+  margin-top: 1.5rem;
+  padding-top: 1.1rem;
+  border-top: 1px dashed var(--border);
+}
+
+.timeline-group:first-child {
+  margin-top: 0.85rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.timeline-group .timeline-bullets {
+  margin-top: 0.5rem;
+}
+
+.timeline-group-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(79, 156, 255, 0.06);
+  color: var(--text);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.timeline-group-icon {
+  color: var(--accent);
+  font-size: 0.85rem;
+  line-height: 1;
 }
 
 /* Skills */
