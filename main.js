@@ -311,17 +311,27 @@
 
     renderHint();
 
-    slices.forEach((slice) => {
-      const activate = () => {
+    // Delegate hover at the group level. mouseover/mouseout bubble (unlike
+    // mouseenter/mouseleave) so one pair of listeners covers all five
+    // slices and handles slice-to-slice transitions without flicker. We
+    // track the active slice so we don't redundantly re-render the pills
+    // when the cursor moves within the same path.
+    const sliceGroup = featuredCard.querySelector(".pyramid-slices");
+    if (sliceGroup) {
+      let activeSlice = null;
+      sliceGroup.addEventListener("mouseover", (event) => {
+        const slice = event.target.closest(".pyramid-slice[data-tier]");
+        if (!slice || slice === activeSlice) return;
+        activeSlice = slice;
         highlight(slice.dataset.tier);
         showTierPills(slice);
-      };
-      const deactivate = () => {
+      });
+      sliceGroup.addEventListener("mouseleave", () => {
+        if (!activeSlice) return;
+        activeSlice = null;
         highlight(null);
         renderHint();
-      };
-      slice.addEventListener("mouseenter", activate);
-      slice.addEventListener("mouseleave", deactivate);
-    });
+      });
+    }
   }
 })();
