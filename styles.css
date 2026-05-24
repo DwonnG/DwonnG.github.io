@@ -1365,18 +1365,6 @@ body[data-portrait="on"] .hero-portrait {
   filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.35));
 }
 
-/* Each SVG link gets a clear focus ring for keyboard users */
-.pyramid-slices a {
-  cursor: pointer;
-  outline: none;
-}
-
-.pyramid-slices a:focus-visible .pyramid-slice {
-  stroke: var(--accent);
-  stroke-width: 2.5;
-  filter: brightness(1.2);
-}
-
 .pyramid-slice {
   stroke: rgba(255, 255, 255, 0.12);
   stroke-width: 1;

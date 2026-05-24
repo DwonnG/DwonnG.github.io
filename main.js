@@ -268,7 +268,12 @@
 
   const featuredCard = document.querySelector(".project-card--featured");
   if (featuredCard) {
-    const sliceLinks = featuredCard.querySelectorAll(".pyramid-slices a");
+    // Slice navigation now lives on the qa-automation-lab dashboard (each
+    // suite card → detail page → "source on GitHub"). The pyramid here is
+    // a decorative summary; the whole card already navigates to the
+    // dashboard via .project-card-primary::after. We still wire up the
+    // hover affordance so visitors can see which tools belong to each
+    // tier without breaking the card-level click target.
     const slices = featuredCard.querySelectorAll(".pyramid-slice[data-tier]");
     const pillsContainer = featuredCard.querySelector(".pyramid-tech");
     const HINT_TEXT = "Hover the pyramid for more details";
@@ -306,21 +311,17 @@
 
     renderHint();
 
-    sliceLinks.forEach((link) => {
-      const polygon = link.querySelector(".pyramid-slice");
-      if (!polygon) return;
+    slices.forEach((slice) => {
       const activate = () => {
-        highlight(polygon.dataset.tier);
-        showTierPills(polygon);
+        highlight(slice.dataset.tier);
+        showTierPills(slice);
       };
       const deactivate = () => {
         highlight(null);
         renderHint();
       };
-      link.addEventListener("mouseenter", activate);
-      link.addEventListener("mouseleave", deactivate);
-      link.addEventListener("focusin", activate);
-      link.addEventListener("focusout", deactivate);
+      slice.addEventListener("mouseenter", activate);
+      slice.addEventListener("mouseleave", deactivate);
     });
   }
 })();

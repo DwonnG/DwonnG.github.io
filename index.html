@@ -347,87 +347,59 @@
                         <stop offset="100%" stop-color="rgba(35,10,18,0.78)" />
                       </linearGradient>
                     </defs>
-                    <g class="pyramid-slices">
-                      <a
-                        href="https://github.com/DwonnG/qa-automation-lab/tree/main/playwright"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="UI E2E — Playwright, Cypress, accessibility"
-                      >
-                        <path
-                          class="pyramid-slice reveal"
-                          data-tier="ui"
-                          data-label="UI E2E"
-                          data-sub="Playwright · Cypress · Accessibility"
-                          d="M 122.15 18.51 L 137.85 51.49 Q 140 56 135 56 L 105 56 Q 100 56 102.15 51.49 L 117.85 18.51 Q 120 14 122.15 18.51 Z"
-                          fill="url(#grad-ui)"
-                          style="--reveal-delay: 80ms"
-                        />
-                      </a>
-                      <a
-                        href="https://github.com/DwonnG/qa-automation-lab/tree/main/pytest-api"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="API E2E — pytest, Schemathesis, performance"
-                      >
-                        <path
-                          class="pyramid-slice reveal"
-                          data-tier="api"
-                          data-label="API E2E"
-                          data-sub="pytest · Schemathesis · Performance"
-                          d="M 105 56 L 135 56 Q 140 56 142.15 60.51 L 157.85 93.49 Q 160 98 155 98 L 85 98 Q 80 98 82.15 93.49 L 97.85 60.51 Q 100 56 105 56 Z"
-                          fill="url(#grad-api)"
-                          style="--reveal-delay: 160ms"
-                        />
-                      </a>
-                      <a
-                        href="https://github.com/DwonnG/qa-automation-lab/tree/main/web/tests"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Component — Vitest, React Testing Library"
-                      >
-                        <path
-                          class="pyramid-slice reveal"
-                          data-tier="component"
-                          data-label="Component"
-                          data-sub="Vitest · RTL"
-                          d="M 85 98 L 155 98 Q 160 98 162.15 102.51 L 177.85 135.49 Q 180 140 175 140 L 65 140 Q 60 140 62.15 135.49 L 77.85 102.51 Q 80 98 85 98 Z"
-                          fill="url(#grad-component)"
-                          style="--reveal-delay: 240ms"
-                        />
-                      </a>
-                      <a
-                        href="https://github.com/DwonnG/qa-automation-lab/tree/main/demo-app/tests/integration"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Integration — FastAPI TestClient"
-                      >
-                        <path
-                          class="pyramid-slice reveal"
-                          data-tier="integration"
-                          data-label="Integration"
-                          data-sub="FastAPI TestClient"
-                          d="M 65 140 L 175 140 Q 180 140 182.15 144.51 L 197.85 177.49 Q 200 182 195 182 L 45 182 Q 40 182 42.15 177.49 L 57.85 144.51 Q 60 140 65 140 Z"
-                          fill="url(#grad-integration)"
-                          style="--reveal-delay: 320ms"
-                        />
-                      </a>
-                      <a
-                        href="https://github.com/DwonnG/qa-automation-lab/tree/main/demo-app/tests/unit"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Unit — pytest (backend) and Vitest (frontend)"
-                      >
-                        <path
-                          class="pyramid-slice reveal"
-                          data-tier="unit"
-                          data-label="Unit"
-                          data-sub="pytest · Vitest"
-                          d="M 45 182 L 195 182 Q 200 182 202.15 186.51 L 217.85 219.49 Q 220 224 215 224 L 25 224 Q 20 224 22.15 219.49 L 37.85 186.51 Q 40 182 45 182 Z"
-                          fill="url(#grad-unit)"
-                          style="--reveal-delay: 400ms"
-                        />
-                      </a>
+                    <!--
+                      The five slices are decorative summaries of what the lab covers.
+                      Per-directory deep links used to wrap each slice in its own <a>,
+                      but that fought the card's "click anywhere" navigation to the
+                      live dashboard. Source links for each layer now live on the
+                      dashboard itself (each suite card → detail → "source on GitHub").
+                    -->
+                    <g class="pyramid-slices" aria-hidden="true">
+                      <path
+                        class="pyramid-slice reveal"
+                        data-tier="ui"
+                        data-label="UI E2E"
+                        data-sub="Playwright · Cypress · Accessibility"
+                        d="M 122.15 18.51 L 137.85 51.49 Q 140 56 135 56 L 105 56 Q 100 56 102.15 51.49 L 117.85 18.51 Q 120 14 122.15 18.51 Z"
+                        fill="url(#grad-ui)"
+                        style="--reveal-delay: 80ms"
+                      />
+                      <path
+                        class="pyramid-slice reveal"
+                        data-tier="api"
+                        data-label="API E2E"
+                        data-sub="pytest · Schemathesis · Performance"
+                        d="M 105 56 L 135 56 Q 140 56 142.15 60.51 L 157.85 93.49 Q 160 98 155 98 L 85 98 Q 80 98 82.15 93.49 L 97.85 60.51 Q 100 56 105 56 Z"
+                        fill="url(#grad-api)"
+                        style="--reveal-delay: 160ms"
+                      />
+                      <path
+                        class="pyramid-slice reveal"
+                        data-tier="component"
+                        data-label="Component"
+                        data-sub="Vitest · RTL"
+                        d="M 85 98 L 155 98 Q 160 98 162.15 102.51 L 177.85 135.49 Q 180 140 175 140 L 65 140 Q 60 140 62.15 135.49 L 77.85 102.51 Q 80 98 85 98 Z"
+                        fill="url(#grad-component)"
+                        style="--reveal-delay: 240ms"
+                      />
+                      <path
+                        class="pyramid-slice reveal"
+                        data-tier="integration"
+                        data-label="Integration"
+                        data-sub="FastAPI TestClient"
+                        d="M 65 140 L 175 140 Q 180 140 182.15 144.51 L 197.85 177.49 Q 200 182 195 182 L 45 182 Q 40 182 42.15 177.49 L 57.85 144.51 Q 60 140 65 140 Z"
+                        fill="url(#grad-integration)"
+                        style="--reveal-delay: 320ms"
+                      />
+                      <path
+                        class="pyramid-slice reveal"
+                        data-tier="unit"
+                        data-label="Unit"
+                        data-sub="pytest · Vitest"
+                        d="M 45 182 L 195 182 Q 200 182 202.15 186.51 L 217.85 219.49 Q 220 224 215 224 L 25 224 Q 20 224 22.15 219.49 L 37.85 186.51 Q 40 182 45 182 Z"
+                        fill="url(#grad-unit)"
+                        style="--reveal-delay: 400ms"
+                      />
                     </g>
                     <g class="pyramid-slice-labels">
                       <text x="120" y="48" class="pyramid-slice-label">UI</text>
