@@ -270,10 +270,10 @@
   if (featuredCard) {
     // Slice navigation now lives on the qa-automation-lab dashboard (each
     // suite card → detail page → "source on GitHub"). The pyramid here is
-    // a decorative summary; the whole card already navigates to the
-    // dashboard via .project-card-primary::after. We still wire up the
-    // hover affordance so visitors can see which tools belong to each
-    // tier without breaking the card-level click target.
+    // a decorative summary; the entire featured card is an <a> to the
+    // dashboard so clicks anywhere — including on the SVG slices —
+    // navigate. We still wire up hover affordance below so visitors see
+    // which tools belong to each tier.
     const slices = featuredCard.querySelectorAll(".pyramid-slice[data-tier]");
     const pillsContainer = featuredCard.querySelector(".pyramid-tech");
     const HINT_TEXT = "Hover the pyramid for more details";

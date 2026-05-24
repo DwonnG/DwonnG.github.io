@@ -1232,30 +1232,14 @@ body[data-portrait="on"] .hero-portrait {
   overflow: hidden;
 }
 
-/* Primary link wraps the title; its ::after extends the click area to the whole card.
-   Inner deep links (pills, slices, legend rows) get z-index: 1 so they win over the ::after. */
-.project-card-primary {
-  color: inherit;
-  text-decoration: none;
-}
-
-.project-card-primary:hover {
-  color: inherit;
-}
-
-.project-card-primary::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  border-radius: inherit;
-}
-
-.project-card-primary:focus-visible {
-  outline: none;
-}
-
-.project-card--featured:has(.project-card-primary:focus-visible) {
+/* Featured card is itself an <a> (clicks anywhere — including on the
+   decorative pyramid SVG — navigate to the live dashboard). Earlier
+   versions kept it as an <article> with a .project-card-primary anchor
+   inside the title and an ::after extender to fake a full-card click
+   target, but the SVG sat above the extender at z-index: 1 and ate
+   pointer events. With slice-level deep links gone there's no longer
+   any need for nested anchors, so the wrapper is just an <a>. */
+.project-card--featured:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
