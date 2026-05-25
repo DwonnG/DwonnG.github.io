@@ -20,6 +20,7 @@
      in dark mode on phone displays where the previous value sat below
      the OLED black floor and disappeared into the page bg. */
   --ember-glow: rgba(160, 173, 204, 0.45);
+  --flagship-copper: #c47a3a;
   /* Solid-button slate, pinned to the original (pre-brightened) palette.
      Decoupled from --accent so the brighter text/link slate above doesn't
      drag the primary CTA fills into a more vivid blue. Used by .btn--primary
@@ -77,6 +78,7 @@
   --accent-glow: rgba(69, 83, 116, 0.22);
   --ember: #5a6680;
   --ember-glow: rgba(90, 102, 128, 0.18);
+  --flagship-copper: #a05f29;
   /* In light mode the original --accent already worked as a button fill on
      the white background, so --accent-fill simply mirrors --accent here. */
   --accent-fill: #455374;
@@ -1250,10 +1252,6 @@ body[data-portrait="on"] .hero-portrait {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  /* Lifted from the previous near-invisible slate gradient (0.4/0.25 @ 0.65)
-     to a stronger accent-anchored edge so the flagship card actually
-     announces itself next to its companions. Still inside the slate family —
-     no warm hues, no glow — just a more confident outline. */
   background: linear-gradient(135deg,
     color-mix(in srgb, var(--accent) 75%, transparent),
     color-mix(in srgb, var(--accent) 35%, transparent) 60%,
@@ -1269,9 +1267,6 @@ body[data-portrait="on"] .hero-portrait {
 }
 
 .project-card--featured {
-  /* Soft halo + slightly larger drop so the flagship feels elevated against
-     the surrounding cards. The hover state in .project-card already lifts
-     translateY(-4px); this gives it a base resting altitude. */
   box-shadow:
     0 12px 32px rgba(0, 0, 0, 0.28),
     0 0 0 1px color-mix(in srgb, var(--accent) 8%, transparent);
@@ -1287,40 +1282,38 @@ body[data-portrait="on"] .hero-portrait {
   opacity: 1;
 }
 
-/* Small "★ Flagship" pill that sits beside the existing Test framework
-   label. Uses the slate accent so it ties to the warmed-up gradient edge
-   above; no new hue, just a clearer signal of priority. */
 .project-flagship {
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  margin-left: 0.5rem;
-  padding: 0.16rem 0.5rem 0.18rem;
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
+  justify-content: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-left: 0.45rem;
   border-radius: 999px;
-  white-space: nowrap;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
   transition:
-    color 0.25s var(--ease-out),
     background 0.25s var(--ease-out),
-    border-color 0.25s var(--ease-out);
+    border-color 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
 }
 
 .project-flagship-mark {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   line-height: 1;
-  color: var(--ember);
+  color: var(--flagship-copper);
+  text-shadow: 0 0 6px color-mix(in srgb, var(--flagship-copper) 38%, transparent);
+  transition: text-shadow 0.25s var(--ease-out);
+}
+
+.project-card--featured:hover .project-flagship-mark {
+  text-shadow: 0 0 10px color-mix(in srgb, var(--flagship-copper) 60%, transparent);
 }
 
 .project-card--featured:hover .project-flagship {
-  color: var(--text);
   background: color-mix(in srgb, var(--accent) 22%, transparent);
   border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  transform: scale(1.06);
 }
 
 
