@@ -1250,19 +1250,77 @@ body[data-portrait="on"] .hero-portrait {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(84, 96, 122, 0.4), rgba(107, 120, 148, 0.25));
+  /* Lifted from the previous near-invisible slate gradient (0.4/0.25 @ 0.65)
+     to a stronger accent-anchored edge so the flagship card actually
+     announces itself next to its companions. Still inside the slate family —
+     no warm hues, no glow — just a more confident outline. */
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--accent) 75%, transparent),
+    color-mix(in srgb, var(--accent) 35%, transparent) 60%,
+    color-mix(in srgb, var(--accent) 18%, transparent));
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
   pointer-events: none;
-  opacity: 0.65;
+  opacity: 0.85;
   transition: opacity 0.35s var(--ease-out);
+}
+
+.project-card--featured {
+  /* Soft halo + slightly larger drop so the flagship feels elevated against
+     the surrounding cards. The hover state in .project-card already lifts
+     translateY(-4px); this gives it a base resting altitude. */
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.28),
+    0 0 0 1px color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.project-card--featured:hover {
+  box-shadow:
+    0 28px 64px rgba(0, 0, 0, 0.45),
+    0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
 .project-card--featured:hover::before {
   opacity: 1;
+}
+
+/* Small "★ Flagship" pill that sits beside the existing Test framework
+   label. Uses the slate accent so it ties to the warmed-up gradient edge
+   above; no new hue, just a clearer signal of priority. */
+.project-flagship {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-left: 0.5rem;
+  padding: 0.16rem 0.5rem 0.18rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
+  border-radius: 999px;
+  white-space: nowrap;
+  transition:
+    color 0.25s var(--ease-out),
+    background 0.25s var(--ease-out),
+    border-color 0.25s var(--ease-out);
+}
+
+.project-flagship-mark {
+  font-size: 0.7rem;
+  line-height: 1;
+  color: var(--ember);
+}
+
+.project-card--featured:hover .project-flagship {
+  color: var(--text);
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
 }
 
 
