@@ -42,10 +42,8 @@
     <link rel="stylesheet" href="styles.css" />
 
     <!-- GoatCounter config. Must be defined BEFORE the count.js script loads.
-         - allow_local: count visits from localhost / private IPs (otherwise
-           GoatCounter silently drops them, which makes local testing fail).
-           Safe to leave enabled in production since the live site never runs
-           on localhost.
+         - allow_local: kept off so localhost / private IPs never count, even
+           if a stray UTM or test campaign is fired during local dev.
          - referrer: when the visit has no UTM and no real referrer (likely a
            click from the resume PDF, a bookmark, or typed URL), report
            "resume" so it shows up in GoatCounter's Referrers tab. Keeps the
@@ -54,7 +52,7 @@
            https://DwonnG.github.io/#toggle-goatcounter -->
     <script>
       window.goatcounter = {
-        allow_local: true,
+        allow_local: false,
         referrer: function (r) {
           try {
             var url = new URL(window.location.href);
