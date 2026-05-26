@@ -10,6 +10,34 @@
     <meta name="robots" content="index, follow, noai, noimageai" />
     <title>Dwonn Goodwin · Lead SDET &amp; AI Automation Leader</title>
 
+    <!-- Open Graph + Twitter Card metadata. Drives the link preview when
+         the site URL is shared in LinkedIn, Slack, iMessage, email, etc.
+         Image is the square hero portrait; Twitter card uses the "summary"
+         variant since the portrait is 256x256 (a wider 1200x630 banner
+         could be added later to upgrade to "summary_large_image"). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Dwonn Goodwin" />
+    <meta property="og:url" content="https://dwonng.github.io/" />
+    <meta property="og:title" content="Dwonn Goodwin · Lead SDET &amp; AI Automation Leader" />
+    <meta
+      property="og:description"
+      content="Lead / Staff SDET in AI-native quality engineering. Automation platforms, CI gates, agent orchestration, and LLM evaluation for enterprise teams."
+    />
+    <meta property="og:image" content="https://dwonng.github.io/portrait.png" />
+    <meta property="og:image:width" content="256" />
+    <meta property="og:image:height" content="256" />
+    <meta property="og:image:alt" content="Portrait of Dwonn Goodwin" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Dwonn Goodwin · Lead SDET &amp; AI Automation Leader" />
+    <meta
+      name="twitter:description"
+      content="Lead / Staff SDET in AI-native quality engineering. Automation platforms, CI gates, agent orchestration, and LLM evaluation for enterprise teams."
+    />
+    <meta name="twitter:image" content="https://dwonng.github.io/portrait.png" />
+    <meta name="twitter:image:alt" content="Portrait of Dwonn Goodwin" />
+
     <!-- Theme-aware SVG favicon. The SVG uses @media (prefers-color-scheme)
          internally so the monogram tile flips palettes with the OS theme.
          theme-color drives the mobile browser chrome tint to match. -->
@@ -296,8 +324,10 @@
               <div class="featured-content">
                 <h3>qa-automation-lab</h3>
                 <p class="project-tagline">
-                  Full automation framework spanning UI, API, component, integration, and unit testing. With CI quality gates across a React + FastAPI application.
-                </p>              
+                  Full automation framework spanning UI, API, component, integration, and unit testing,
+                  plus an LLM evaluation layer that gates non-deterministic AI output. 
+                  CI quality gates across a React + FastAPI app.
+                </p>
               </div>
               <figure class="featured-pyramid">
                 <div class="pyramid-stage">
@@ -370,7 +400,7 @@
                         class="pyramid-slice reveal"
                         data-tier="api"
                         data-label="API E2E"
-                        data-sub="pytest · Schemathesis · Performance"
+                        data-sub="pytest · Schemathesis · Performance · LLM evals"
                         d="M 105 56 L 135 56 Q 140 56 142.15 60.51 L 157.85 93.49 Q 160 98 155 98 L 85 98 Q 80 98 82.15 93.49 L 97.85 60.51 Q 100 56 105 56 Z"
                         fill="url(#grad-api)"
                         style="--reveal-delay: 160ms"
@@ -702,8 +732,8 @@
           <div class="skill-group skill-group--wide">
             <p class="skill-group-label">AI &amp; agent tooling</p>
             <div class="skill-cloud">
-              <span>Claude</span><span>OpenAI</span><span>Cursor</span><span>MCP</span
-              ><span>RAG</span><span>Agent skills</span>
+              <span>Anthropic Claude</span><span>OpenAI</span><span>Cursor</span><span>MCP</span
+              ><span>LangSmith</span><span>LLM evals</span><span>RAG</span><span>Agent skills</span>
             </div>
           </div>
         </div>
