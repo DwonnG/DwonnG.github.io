@@ -158,18 +158,81 @@
     });
   }
 
+  function initTestimonials() {
+    const cards = [...document.querySelectorAll(".testimonial-card")];
+    if (!cards.length) return;
+
+    function setExpanded(card, open) {
+      const details = card.querySelector(".testimonial-disclosure");
+      if (!details) return;
+
+      details.open = open;
+      card.classList.toggle("is-expanded", open);
+      card.setAttribute("aria-expanded", String(open));
+      card.setAttribute("role", open ? "article" : "button");
+      card.setAttribute("tabindex", open ? "-1" : "0");
+    }
+
+    cards.forEach((card) => {
+      const details = card.querySelector(".testimonial-disclosure");
+      const summary = details?.querySelector(".testimonial-disclosure-toggle");
+      if (!details || !summary) return;
+
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("role", "button");
+      card.setAttribute("aria-expanded", "false");
+
+      card.addEventListener("click", (event) => {
+        if (event.target.closest(".testimonial-disclosure-toggle")) {
+          return;
+        }
+        if (details.open) return;
+
+        event.preventDefault();
+        cards.forEach((other) => {
+          if (other !== card) setExpanded(other, false);
+        });
+        setExpanded(card, true);
+      });
+
+      details.addEventListener("toggle", () => {
+        card.classList.toggle("is-expanded", details.open);
+        card.setAttribute("aria-expanded", String(details.open));
+        card.setAttribute("role", details.open ? "article" : "button");
+        card.setAttribute("tabindex", details.open ? "-1" : "0");
+
+        if (!details.open) return;
+        cards.forEach((other) => {
+          if (other !== card) setExpanded(other, false);
+        });
+      });
+
+      card.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        if (details.open) return;
+        event.preventDefault();
+        cards.forEach((other) => {
+          if (other !== card) setExpanded(other, false);
+        });
+        setExpanded(card, true);
+      });
+    });
+  }
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
       bindClickTracking();
       initThemeToggle();
       initMobileMenu();
       initHeroPortrait();
+      initTestimonials();
     });
   } else {
     bindClickTracking();
     initThemeToggle();
     initMobileMenu();
     initHeroPortrait();
+    initTestimonials();
   }
 
   const nav = document.querySelector(".top-nav");

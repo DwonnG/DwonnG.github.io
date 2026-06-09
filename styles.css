@@ -1851,26 +1851,34 @@ body[data-portrait="on"] .hero-portrait {
 .testimonial-grid {
   display: grid;
   gap: 1.25rem;
-  /* align-items: start prevents grid from stretching shorter cards to
-     match the height of an expanded sibling. Without this, expanding
-     one card would visually inflate the other. */
-  align-items: start;
+  align-items: stretch;
 }
 
 @media (min-width: 820px) {
   .testimonial-grid {
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1080px) {
+  .testimonial-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 .testimonial-card {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 300px;
   margin: 0;
   padding: 1.5rem 1.6rem 1.4rem;
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  cursor: pointer;
   /* Subtle gradient seam in the top border to echo the featured project
      card treatment — keeps the page's visual language consistent. */
   box-shadow:
@@ -1878,6 +1886,7 @@ body[data-portrait="on"] .hero-portrait {
     0 8px 24px color-mix(in srgb, var(--accent) 6%, transparent);
   transition:
     border-color 0.25s var(--ease-out),
+    opacity 0.22s var(--ease-out),
     transform 0.25s var(--ease-out),
     box-shadow 0.25s var(--ease-out);
 }
@@ -1888,6 +1897,36 @@ body[data-portrait="on"] .hero-portrait {
   box-shadow:
     0 1px 0 color-mix(in srgb, var(--accent) 18%, transparent) inset,
     0 14px 32px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.testimonial-card.is-expanded {
+  order: -1;
+  grid-column: 1 / -1;
+  height: auto;
+  min-height: 0;
+  cursor: default;
+  user-select: text;
+  background: color-mix(in srgb, var(--bg-elevated) 86%, var(--accent-dim));
+  border-color: var(--border-hover);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--accent) 18%, transparent) inset,
+    0 18px 44px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.testimonial-card.is-expanded .testimonial-summary,
+.testimonial-card.is-expanded .testimonial-quote,
+.testimonial-card.is-expanded .testimonial-cite {
+  cursor: text;
+  user-select: text;
+}
+
+.testimonial-card.is-expanded .testimonial-disclosure-toggle {
+  cursor: pointer;
+  user-select: none;
+}
+
+.testimonial-card.is-expanded:hover {
+  transform: none;
 }
 
 .testimonial-mark {
@@ -1908,6 +1947,7 @@ body[data-portrait="on"] .hero-portrait {
   margin: 0 0 0.85rem;
   /* Right padding clears the decorative quote-mark glyph in the corner. */
   padding-right: 2.25rem;
+  min-height: 7.6rem;
   font-size: 0.95rem;
   line-height: 1.6;
   color: var(--text-secondary);
@@ -1917,7 +1957,7 @@ body[data-portrait="on"] .hero-portrait {
    redundant with the full quote (which contains the same content
    verbatim). :has() lets us scope this to the specific card without
    any JS coordination. */
-.testimonial-card:has(.testimonial-disclosure[open]) .testimonial-summary {
+.testimonial-card.is-expanded .testimonial-summary {
   display: none;
 }
 
@@ -1925,6 +1965,10 @@ body[data-portrait="on"] .hero-portrait {
    Native <details> handles the open/closed state with zero JS. */
 .testimonial-disclosure {
   margin: 0 0 1.25rem;
+}
+
+.testimonial-disclosure[open] {
+  margin-bottom: 1.1rem;
 }
 
 .testimonial-disclosure-toggle {
@@ -1979,8 +2023,6 @@ body[data-portrait="on"] .hero-portrait {
 
 .testimonial-quote {
   margin: 0.85rem 0 0;
-  /* Match the right indent of the summary so expanded quote doesn't
-     suddenly use a wider column than what the card previewed. */
   padding-right: 2.25rem;
   font-size: 0.95rem;
   line-height: 1.6;
@@ -2005,8 +2047,20 @@ body[data-portrait="on"] .hero-portrait {
   display: flex;
   align-items: center;
   gap: 0.85rem;
+  margin-top: auto;
   padding-top: 1rem;
   border-top: 1px solid var(--border);
+}
+
+.testimonial-card.is-expanded .testimonial-cite {
+  margin-top: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-card,
+  .testimonial-disclosure-icon {
+    transition: none;
+  }
 }
 
 .testimonial-avatar {
