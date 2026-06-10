@@ -117,6 +117,7 @@
       <div class="nav-links">
         <a href="#impact">Impact</a>
         <a href="#roles">Focus</a>
+        <a href="#quality-model">Model</a>
         <a href="#work">Work</a>
         <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
@@ -140,6 +141,7 @@
     <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
       <a href="#impact">Impact</a>
       <a href="#roles">Focus</a>
+      <a href="#quality-model">Model</a>
       <a href="#work">Work</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
@@ -286,9 +288,98 @@
         </div>
       </section>
 
+      <section class="section" id="quality-model">
+        <div class="ai-model-layout">
+          <div class="ai-model-main">
+            <div class="ai-model-intro reveal">
+              <p class="eyebrow"><span class="eyebrow-num">02</span> AI testing strategy</p>
+              <h2>The AI testing pyramid</h2>
+              <p>
+                AI quality extends the traditional test pyramid. Deterministic engineering remains the
+                foundation; evaluation, feedback, and human judgment address the non-deterministic
+                variability above it.
+              </p>
+            </div>
+
+            <div class="ai-model-card ai-pyramid-card reveal" style="--reveal-delay: 90ms">
+              <div class="ai-pyramid" aria-label="Five-layer AI testing pyramid">
+                <div class="ai-pyramid-layer ai-pyramid-layer--human">
+                  <span class="ai-pyramid-index">05</span>
+                  <span class="ai-pyramid-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2.5 19c.5-4 2.3-6 5.5-6s5 2 5.5 6M10.5 19c.5-4 2.3-6 5.5-6s5 2 5.5 6"/></svg>
+                  </span>
+                  <span class="ai-pyramid-copy"><strong>Human evaluation &amp;<br>production feedback</strong><small>Edge cases · human review · feedback loops</small></span>
+                </div>
+                <div class="ai-pyramid-layer ai-pyramid-layer--judge">
+                  <span class="ai-pyramid-index">04</span>
+                  <span class="ai-pyramid-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="m12 7 1.5 3 3.5.5-2.5 2.5.6 3.5-3.1-1.7-3.1 1.7.6-3.5L7 10.5l3.5-.5L12 7Z"/></svg>
+                  </span>
+                  <span class="ai-pyramid-copy"><strong>LLM-as-a-Judge evaluation</strong><small>Accuracy · relevance · safety</small></span>
+                </div>
+                <div class="ai-pyramid-layer ai-pyramid-layer--ai">
+                  <span class="ai-pyramid-index">03</span>
+                  <span class="ai-pyramid-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 3 5 7v10l7 4 7-4V7l-7-4Z"/><path d="m5 7 7 4 7-4M12 11v10M8 5v4l-3 3M16 5v4l3 3"/></svg>
+                  </span>
+                  <span class="ai-pyramid-copy"><strong>Prompt, RAG &amp; agent validation</strong><small>Context · retrieval · tool behavior</small></span>
+                </div>
+                <div class="ai-pyramid-layer ai-pyramid-layer--integration">
+                  <span class="ai-pyramid-index">02</span>
+                  <span class="ai-pyramid-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m9.5 14.5 5-5M7 17H5.5a4.5 4.5 0 0 1 0-9H9M15 7h3.5a4.5 4.5 0 0 1 0 9H15"/></svg>
+                  </span>
+                  <span class="ai-pyramid-copy"><strong>API &amp; integration tests</strong><small>Contracts · services · data flow</small></span>
+                </div>
+                <div class="ai-pyramid-layer ai-pyramid-layer--unit">
+                  <span class="ai-pyramid-index">01</span>
+                  <span class="ai-pyramid-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>
+                  </span>
+                  <span class="ai-pyramid-copy"><strong>Unit tests &amp; deterministic logic</strong><small>Rules · validation · access control</small></span>
+                </div>
+              </div>
+              <div class="ai-pyramid-axis" aria-hidden="true">
+                <span></span><strong> Foundation to AI Quality</strong><span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ai-model-side">
+            <aside class="ai-model-card ai-model-principle reveal" style="--reveal-delay: 60ms">
+              <span class="ai-model-kicker">Core principle</span>
+              <div class="ai-model-signals" aria-label="What this model demonstrates">
+                <span><b aria-hidden="true">◇</b>Deterministic foundation</span>
+                <span><b aria-hidden="true">◎</b>Evaluation &amp; observability</span>
+                <span><b aria-hidden="true">⌁</b>Non-deterministic checks</span>
+                <span><b aria-hidden="true">↻</b>Production learning loop</span>
+              </div>
+            </aside>
+
+            <aside class="ai-model-card ai-observability reveal" style="--reveal-delay: 120ms">
+              <span class="ai-model-kicker">Observability</span>
+              <div class="ai-observability-body">
+                <div class="ai-observability-brand">
+                  <span aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M3 18 9 12l4 3 8-9"/><circle cx="3" cy="18" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="13" cy="15" r="1.5"/><circle cx="21" cy="6" r="1.5"/></svg>
+                  </span>
+                  <strong>LangSmith</strong>
+                </div>
+                <ul>
+                  <li><b aria-hidden="true">⌘</b>Tracing</li>
+                  <li><b aria-hidden="true">◷</b>Historical evaluations</li>
+                  <li><b aria-hidden="true">⌁</b>Regression detection</li>
+                  <li><b aria-hidden="true">↻</b>Feedback loops</li>
+                </ul>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
       <section class="section" id="work">
         <div class="section-head reveal">
-          <p class="eyebrow"><span class="eyebrow-num">02</span> Featured work</p>
+          <p class="eyebrow"><span class="eyebrow-num">03</span> Featured work</p>
           <h2>Built in the open</h2>
         </div>
         <div class="projects-wrap">
@@ -512,7 +603,7 @@
 
       <section class="section" id="experience">
         <div class="section-head reveal">
-          <p class="eyebrow"><span class="eyebrow-num">03</span> Experience</p>
+          <p class="eyebrow"><span class="eyebrow-num">04</span> Experience</p>
           <h2>Career timeline</h2>
         </div>
 
@@ -697,7 +788,7 @@
 
       <section class="section" id="skills">
         <div class="section-head reveal">
-          <p class="eyebrow"><span class="eyebrow-num">04</span> Toolkit</p>
+          <p class="eyebrow"><span class="eyebrow-num">05</span> Toolkit</p>
           <h2>Technical depth</h2>
         </div>
         <div class="skill-groups reveal" style="--reveal-delay: 40ms">
@@ -741,7 +832,7 @@
 
       <section class="section" id="praise">
         <div class="section-head reveal">
-          <p class="eyebrow"><span class="eyebrow-num">05</span> Praise</p>
+          <p class="eyebrow"><span class="eyebrow-num">06</span> Praise</p>
           <h2>What people say</h2>
         </div>
         <div class="testimonial-grid reveal" style="--reveal-delay: 40ms">
@@ -994,7 +1085,7 @@
 
       <section class="section section--background reveal">
         <div class="section-head reveal">
-          <p class="eyebrow"><span class="eyebrow-num">06</span> Background</p>
+          <p class="eyebrow"><span class="eyebrow-num">07</span> Background</p>
           <h2>Education &amp; recognition</h2>
         </div>
         <div class="background-grid">

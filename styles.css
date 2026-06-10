@@ -89,9 +89,9 @@
      a pastel wash disappears on near-white backgrounds, so the colors need
      real pigment + alpha (~2x dark-mode alpha) to read after layer opacity
      and 100-140px blur diffuse them across hundreds of pixels. */
-  --glow-warm: rgba(130, 100, 175, 0.42);
-  --glow-cool-a: rgba(75, 110, 185, 0.52);
-  --glow-cool-b: rgba(95, 130, 195, 0.46);
+  --glow-warm: rgba(130, 100, 175, 0.3);
+  --glow-cool-a: rgba(75, 110, 185, 0.36);
+  --glow-cool-b: rgba(95, 130, 195, 0.32);
   --nav-bg: rgba(255, 255, 255, 0.72);
   --nav-bg-scrolled: rgba(255, 255, 255, 0.92);
   --grid-line: rgba(15, 17, 26, 0.12);
@@ -119,9 +119,9 @@
     --accent-fill-hover: #6b7894;
     --accent-fill-dim: rgba(69, 83, 116, 0.1);
     --accent-fill-glow: rgba(69, 83, 116, 0.22);
-    --glow-warm: rgba(130, 100, 175, 0.42);
-    --glow-cool-a: rgba(75, 110, 185, 0.52);
-    --glow-cool-b: rgba(95, 130, 195, 0.46);
+    --glow-warm: rgba(130, 100, 175, 0.3);
+    --glow-cool-a: rgba(75, 110, 185, 0.36);
+    --glow-cool-b: rgba(95, 130, 195, 0.32);
     --nav-bg: rgba(255, 255, 255, 0.72);
     --nav-bg-scrolled: rgba(255, 255, 255, 0.92);
     --grid-line: rgba(15, 17, 26, 0.12);
@@ -136,6 +136,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-h);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1046,6 +1047,478 @@ body[data-portrait="on"] .hero-portrait {
   font-size: 0.85rem;
   color: var(--text-secondary);
   line-height: 1.55;
+}
+
+/* AI quality model */
+.ai-model-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 1.1rem;
+  align-items: start;
+}
+
+.ai-model-main {
+  display: contents;
+}
+
+.ai-model-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  min-width: 0;
+}
+
+.ai-model-intro {
+  grid-column: 1 / -1;
+  max-width: 610px;
+  padding-top: 0.25rem;
+}
+
+.ai-model-intro h2 {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.7rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+.ai-model-intro > p:last-child {
+  max-width: 60ch;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.ai-model-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.ai-pyramid-card {
+  padding: clamp(1rem, 2.5vw, 1.8rem);
+  overflow: hidden;
+}
+
+.ai-pyramid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+  margin-inline: auto;
+}
+
+.ai-pyramid-layer {
+  position: relative;
+  isolation: isolate;
+  width: var(--layer-width);
+  min-height: 4.65rem;
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  gap: clamp(0.5rem, 1.5vw, 0.9rem);
+  align-items: center;
+  padding: 0.55rem clamp(1rem, 3vw, 2rem);
+  color: #ffffff;
+  transition: filter 0.25s var(--ease-out);
+}
+
+.ai-pyramid-layer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(105deg, rgba(255, 255, 255, 0.13), transparent 48%),
+    var(--layer-color);
+  border: 1px solid rgba(143, 158, 255, 0.28);
+  clip-path: polygon(var(--inset) 0, calc(100% - var(--inset)) 0, 100% 100%, 0 100%);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] .ai-pyramid-layer::before {
+  border-color: rgba(52, 63, 105, 0.34);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="light"] .ai-pyramid-index {
+  color: #6673b5;
+}
+
+[data-theme="light"] .ai-model-signals b {
+  color: #53609e;
+  background: rgba(83, 96, 158, 0.18);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .ai-pyramid-layer::before {
+    border-color: rgba(52, 63, 105, 0.34);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.2);
+  }
+
+  :root:not([data-theme]) .ai-pyramid-index {
+    color: #6673b5;
+  }
+
+  :root:not([data-theme]) .ai-model-signals b {
+    color: #53609e;
+    background: rgba(83, 96, 158, 0.18);
+  }
+}
+
+.ai-pyramid-layer:hover {
+  filter: brightness(1.15);
+}
+
+.ai-pyramid-layer--human {
+  --layer-width: 54%;
+  --inset: 9.26%;
+  --index-offset: 4.2rem;
+  --layer-color: #6668a4;
+}
+
+.ai-pyramid-layer--judge {
+  --layer-width: 64%;
+  --inset: 7.81%;
+  --index-offset: 3.5rem;
+  --layer-color: #535f9b;
+}
+
+.ai-pyramid-layer--ai {
+  --layer-width: 74%;
+  --inset: 6.76%;
+  --index-offset: 2.8rem;
+  --layer-color: #3d4e89;
+}
+
+.ai-pyramid-layer--integration {
+  --layer-width: 84%;
+  --inset: 5.95%;
+  --index-offset: 2rem;
+  --layer-color: #2b407a;
+}
+
+.ai-pyramid-layer--unit {
+  --layer-width: 94%;
+  --inset: 5.32%;
+  --index-offset: 1.2rem;
+  --layer-color: #18336d;
+}
+
+.ai-pyramid-index {
+  position: absolute;
+  top: 50%;
+  left: calc(-1 * var(--index-offset));
+  transform: translateY(-50%);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #9aa8ff;
+}
+
+.ai-pyramid-icon {
+  width: 3.15rem;
+  height: 3.15rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  background: rgba(16, 27, 66, 0.22);
+}
+
+.ai-pyramid-icon svg,
+.ai-observability svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ai-pyramid-icon svg {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.ai-pyramid-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.ai-pyramid-copy strong {
+  font-size: clamp(0.76rem, 1.15vw, 0.88rem);
+  line-height: 1.35;
+}
+
+.ai-pyramid-copy small {
+  margin-top: 0.25rem;
+  font-size: clamp(0.62rem, 1vw, 0.72rem);
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.35;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.ai-pyramid-layer--human {
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 0.65rem;
+  padding-inline: clamp(0.9rem, 2vw, 1.35rem);
+}
+
+.ai-pyramid-layer--human .ai-pyramid-copy strong {
+  font-size: clamp(0.74rem, 1.05vw, 0.86rem);
+}
+
+.ai-pyramid-layer--human .ai-pyramid-copy small {
+  font-size: clamp(0.59rem, 0.9vw, 0.68rem);
+}
+
+.ai-pyramid-axis {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.35rem;
+  color: var(--accent);
+}
+
+.ai-pyramid-axis span {
+  height: 1px;
+  border-top: 1px dashed var(--accent-muted);
+  opacity: 0.55;
+}
+
+.ai-pyramid-axis strong {
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+}
+
+.ai-model-principle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1.25rem, 2.5vw, 1.7rem);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(97, 91, 184, 0.13), transparent 55%),
+    var(--bg-elevated);
+}
+
+.ai-model-kicker {
+  margin-bottom: 0.75rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.ai-model-principle-copy {
+  margin: 0 0 1rem;
+  padding-bottom: 1rem;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  border-bottom: 1px dashed var(--border-hover);
+}
+
+.ai-model-signals {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.ai-model-signals span {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.42rem 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+  background: rgba(71, 80, 125, 0.1);
+  border: 1px solid var(--border-hover);
+  border-radius: 8px;
+}
+
+.ai-model-signals b {
+  width: 1.4rem;
+  height: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 1.4rem;
+  color: #c4c9ff;
+  font-size: 0.85rem;
+  background: rgba(74, 88, 172, 0.35);
+  border-radius: 50%;
+}
+
+.ai-observability {
+  padding: clamp(1.25rem, 2.5vw, 1.7rem);
+}
+
+.ai-observability > p {
+  margin: 0 0 1rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.ai-observability-body {
+  display: grid;
+  grid-template-columns: 5.6rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+}
+
+.ai-observability-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  padding-right: 1rem;
+  border-right: 1px dashed var(--border-hover);
+}
+
+.ai-observability-brand > span {
+  width: 4rem;
+  height: 4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: linear-gradient(145deg, #6261aa, #343875);
+  border-radius: 12px;
+}
+
+.ai-observability-brand svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.ai-observability-brand strong,
+.ai-observability li {
+  font-size: 0.72rem;
+}
+
+.ai-observability ul {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ai-observability li {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--text);
+}
+
+.ai-observability li b {
+  width: 1rem;
+  flex: 0 0 1rem;
+  color: var(--text);
+  font-size: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 960px) {
+  .ai-model-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-model-intro {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 620px) {
+  .ai-pyramid-card {
+    padding: 0.75rem;
+  }
+
+  .ai-pyramid-layer {
+    min-height: 4.6rem;
+    grid-template-columns: 2.6rem minmax(0, 1fr);
+    gap: 0.45rem;
+    padding: 0.6rem 0.75rem;
+  }
+
+  .ai-pyramid-layer--human {
+    --layer-width: 72%;
+    --inset: 4.86%;
+  }
+
+  .ai-pyramid-layer--judge {
+    --layer-width: 79%;
+    --inset: 4.43%;
+  }
+
+  .ai-pyramid-layer--ai {
+    --layer-width: 86%;
+    --inset: 4.07%;
+  }
+
+  .ai-pyramid-layer--integration {
+    --layer-width: 93%;
+    --inset: 3.76%;
+  }
+
+  .ai-pyramid-layer--unit {
+    --layer-width: 100%;
+    --inset: 3.5%;
+  }
+
+  .ai-pyramid-index {
+    display: none;
+  }
+
+  .ai-pyramid-icon {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+
+  .ai-pyramid-icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .ai-pyramid-copy small {
+    white-space: normal;
+  }
+
+  .ai-pyramid-axis {
+    gap: 0.6rem;
+  }
+
+  .ai-pyramid-axis strong {
+    font-size: 0.62rem;
+  }
+
+  .ai-observability-body {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-observability-brand {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0 0 0.85rem;
+    border-right: 0;
+    border-bottom: 1px dashed var(--border-hover);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-pyramid-layer {
+    transition: none;
+  }
 }
 
 /* Selected work — three cards in a row, sized to match heights */
